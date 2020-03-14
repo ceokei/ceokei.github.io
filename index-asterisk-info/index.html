@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>B.CTI - Kei的记录本</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	
+	<meta name="description" content="">
+	<meta name="generator" content="Hugo 0.65.3" />
+	<meta property="og:title" content="B.CTI" />
+<meta property="og:description" content="ASTERISK PBX: Asterisk moudles 说明 Asterisk install Asterisk sip.conf Asterisk Dailplain 拨号计划 Asterisk IVR MENU Asterisk call parking 呼叫停泊 Asterisk Agent and queues 座席及队列 Asterisk messages 短信消息 Asterisk voicemail 语音信箱 Asterisk meete 会议室 Asterisk fax 传真配置 Asterisk mysql 数据库配置 Asterisk IAX2 Peer 中继对接 Asterisk websockets pjsip SIPMl5 Asterisk lua dialplain Lua拨号计划 Asterisk 安全配置 Asterisk AMI Asterisk Agi Asterisk Nat 数种环境配置 Asterisk Errors Warning Asterisk TMD400 Gateway 模块及设备配置 FreeSwitch PBX" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lnfiber.xyz/index-asterisk-info/" />
+<meta property="article:published_time" content="2016-07-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-07-11T00:00:00+00:00" />
+
+	
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">	
+	<link rel="stylesheet" type="text/css" href="/css/highlight.css">
+	
+	
+	<link rel="stylesheet" href="/css/share.min.css">
+	<script src="/js/social-share.min.js"></script>
+	<script src="/js/qrcode.js"></script>
+	
+	<link rel="stylesheet" href="/css/custom.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+	
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo">
+			<a class="logo__link" href="/" title="Kei的记录本" rel="home">
+			<div class="logo__title">Kei的记录本</div>			
+				<div class="logo__tagline">工作日常记录...!</div> 
+			</a>
+			
+			<div class="float_right"><div class="social-share"></div>
+  <br/></div>
+			
+		</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">选择</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/post/">A.kei的记录</a>
+		</li>
+		<li class="menu__item menu__item--active">
+			<a class="menu__link" href="/index-asterisk-info/">B.CTI</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/zabbix/index-zabbix/">C.Zabbix</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">B.CTI</h1>
+			<p class="post__lead">CTI 呼叫中心相关内容</p>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg>
+	<time class="meta__text" datetime="2016-07-11T00:00:00">2016年07月</time>
+</div>
+</div>
+		</header>
+
+  
+    <div class="toc">
+        <div class="toc__title"><span id="toc_menu_tip">展开书签</span></div>
+        <div class="toc__menu">
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#asterisk-pbx">ASTERISK PBX:</a></li>
+    <li><a href="#freeswitch-pbx">FreeSwitch PBX</a></li>
+  </ul>
+</nav>
+        </div>  
+    </div>
+    <script type="text/javascript">
+    $(".toc__title").click( function () {
+      if($(".toc__menu").css('display') == 'none') {
+        $(".toc__menu").show(); 
+        $("#toc_menu_tip").html("收起书签");
+      } else {
+        $(".toc__menu").hide(); 
+        $("#toc_menu_tip").html("展开书签");
+      }
+    });
+    </script>
+  
+<div class="content post__content clearfix">
+			<h2 id="asterisk-pbx">ASTERISK PBX:</h2>
+<ul>
+<li>
+<ol start="0">
+<li><a href="/cti/asterisk/asterisk-moudle-info">Asterisk moudles 说明</a></li>
+</ol>
+</li>
+<li>
+<ol>
+<li><a href="/cti/asterisk/asterisk-install">Asterisk install</a></li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Asterisk sip.conf</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><a href="/cti/asterisk/asterisk-dailplain">Asterisk Dailplain 拨号计划</a></li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li><a href="/cti/asterisk/asterisk-ivr-menu">Asterisk IVR MENU</a></li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li><a href="/cti/asterisk/asterisk-call-parking">Asterisk call parking 呼叫停泊</a></li>
+</ol>
+</li>
+<li>Asterisk Agent and queues 座席及队列</li>
+<li>Asterisk messages 短信消息</li>
+<li>Asterisk voicemail 语音信箱</li>
+<li>Asterisk meete 会议室</li>
+<li>Asterisk fax 传真配置</li>
+<li>Asterisk mysql 数据库配置</li>
+<li>Asterisk IAX2 Peer 中继对接</li>
+<li>Asterisk websockets pjsip SIPMl5</li>
+<li>Asterisk lua dialplain Lua拨号计划</li>
+<li>Asterisk 安全配置</li>
+<li>Asterisk AMI</li>
+<li>Asterisk Agi</li>
+<li>Asterisk Nat 数种环境配置</li>
+<li>Asterisk Errors Warning</li>
+<li>Asterisk TMD400 Gateway 模块及设备配置</li>
+</ul>
+<h2 id="freeswitch-pbx">FreeSwitch PBX</h2>
+
+		</div>
+		
+	</article>
+</main>
+<div class="social-share"></div>
+  <br/>
+
+
+
+
+
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--next">
+		<a class="post-nav__link" href="/third-classics-articles/" rel="next"><span class="post-nav__caption">后一篇&thinsp;»</span><p class="post-nav__post-title">经典文章</p></a>
+	</div>
+</nav>
+
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Kei的记录本.
+			<span class="footer__copyright-credits">使用 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 技术与 <a href="https://github.com/kingfsen/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>主题</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script async src="/js/highlight.js"></script>
+
+<script type="text/javascript">
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bash on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/bash/</link>
+    <description>Recent content in Bash on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 02 Jun 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bash的用法示例记录</title>
+      <link>https://lnfiber.xyz/post/shell/bash-tutorial/</link>
+      <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/shell/bash-tutorial/</guid>
+      <description>1. 文件或目录测试运算符 参数 意义 -b file 检测文件是否是块设备文件 -c file 检测文件是否是字符设备文件 -d file 检测文件是否是目录 -f file 检测文件是否是普通文件 -g file 检测文件是否设置了 SGID 位 -k file 检测文件是否设置了粘着位(Sticky Bit) -p file 检测文件是否是有名管道 -u file 检测文件是否设置了 SUID 位 -r file 检测文件是否可读 -w file 检测文件</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>其它 on Kei的记录本</title>
+    <link>https://lnfiber.xyz/categories/%E5%85%B6%E5%AE%83/</link>
+    <description>Recent content in 其它 on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 30 Dec 2019 21:46:12 +0800</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/categories/%E5%85%B6%E5%AE%83/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Centos Openshift Paas 虚拟平台部署</title>
+      <link>https://lnfiber.xyz/post/centos/centos-openshift-paas/</link>
+      <pubDate>Mon, 30 Dec 2019 21:46:12 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/centos/centos-openshift-paas/</guid>
+      <description>OKD部署 Openshift版本（虚拟化管理平台）： OpenShift Container Platform(Enterprise-OCP) 企业版 Origin Community Distribution of Kubernetes(OKD) 开源版 实验的软硬件环境情况： OS: centos 7 Ver: 3.11 Master node has up to 16G memory and up to 4 vCPU. Compute node has up to 8G memory and up to 1 vCPU. /var master最小40G，node 最小15G，etcd 最小20G 主机类型 主机名 IP地址 操作系统 master,etcd master.lnfiber.xyz 192.168.122.96 centos 7 node node01.lnfiber.xyz 192.168.122.97 centos 7 node node02.lnfiber.xyz 192.168.122.98 centos 7 没有D</description>
+    </item>
+    
+    <item>
+      <title>Centos 8 dnf 命令管理</title>
+      <link>https://lnfiber.xyz/post/centos/centos-dnf-cli/</link>
+      <pubDate>Mon, 02 Dec 2019 23:33:58 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/centos/centos-dnf-cli/</guid>
+      <description>dnf包管理命令 # 查看有效的源 [root@localhost ~]# dnf repolist Last metadata expiration check: 2:13:00 ago on Mon 02 Dec 2019 07:34:33 AM EST. repo id repo name status AppStream CentOS-8 - AppStream 5,089 BaseOS CentOS-8 - Base 2,843 # 查看所有源（包括失效关闭的） [root@localhost ~]# dnf repolist all Last metadata expiration check: 2:13:26 ago on Mon 02 Dec 2019 07:34:33 AM EST. repo id repo name status AppStream CentOS-8 - AppStream enabled: 5,089 AppStream-source CentOS-8 - AppStream Sources disabled BaseOS CentOS-8 - Base enabled: 2,843 BaseOS-source CentOS-8 - BaseOS Sources disabled PowerTools CentOS-8 - PowerTools disabled base-debuginfo CentOS-8 - Debuginfo disabled c8-media-AppStream CentOS-AppStream-8 - Media disabled c8-media-BaseOS CentOS-BaseOS-8 - Media disabled centosplus CentOS-8 - Plus disabled centosplus-source CentOS-8 - Plus Sources disabled cr CentOS-8 -</description>
+    </item>
+    
+    <item>
+      <title>C.Zabbix</title>
+      <link>https://lnfiber.xyz/zabbix/index-zabbix/</link>
+      <pubDate>Tue, 12 Nov 2019 11:28:56 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/zabbix/index-zabbix/</guid>
+      <description>zabbix 监控系统配置 1.Zabbix系统部署MySQL,Nginx篇 2.Zabbix系统之WEB监测 [3.Zabbix系列之磁盘IO监控] [4.Zabbix系统之MySQL监控] [5.Zabbix系统之MySQL同步监控] [6.Zabbix系统之短信邮件预警]</description>
+    </item>
+    
+    <item>
+      <title>zabbix系统之WEB监测</title>
+      <link>https://lnfiber.xyz/zabbix/zabbix-web-monitor/</link>
+      <pubDate>Tue, 12 Nov 2019 11:28:56 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/zabbix/zabbix-web-monitor/</guid>
+      <description>更详细的可以移步此处:http://www.51niux.com/?id=152</description>
+    </item>
+    
+    <item>
+      <title>Yagmail-邮件发送包</title>
+      <link>https://lnfiber.xyz/third-python3/yagmail/</link>
+      <pubDate>Tue, 05 Nov 2019 22:25:03 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/third-python3/yagmail/</guid>
+      <description>[1] 包所在地址 https://github.com/kootenpv/yagmail [2] 包安装 pip3 install yagmail [3] 包用法 #!/bin/python3 # 邮件正文，html中嵌入sound,vedio images file contents = [&amp;#39;This is the body, and here is just text http://somedomain/image.png&amp;#39;, &amp;#39;You can find an audio file attached.&amp;#39;, &amp;#39;/local/path/song.mp3&amp;#39;] # smtp starttls认证 yag = yagmail.SMTP(user=&amp;#34;aaa@163.com&amp;#34;,password=&amp;#34;123&amp;#34;,host=&amp;#34;smtp.163.com&amp;#34;,port=587,smtp_starttls=True, smtp_ssl=False) # smtp plain认证 yag = yagmail.SMTP(user=&amp;#34;aaa@163.com&amp;#34;,password=&amp;#34;123&amp;#34;,host=&amp;#34;smtp.163.com&amp;#34;,port=25,smtp_starttls=False, smtp_ssl=False) status = yag.send(to=&amp;#34;bbb@163.com&amp;#34;,title=&amp;#34;邮件标题</description>
+    </item>
+    
+    <item>
+      <title>The third&#39;s Packages for Python3</title>
+      <link>https://lnfiber.xyz/index-third-packages-python3/</link>
+      <pubDate>Tue, 05 Nov 2019 22:07:56 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/index-third-packages-python3/</guid>
+      <description>python常用第三方包 1.python之邮件发送 yagmail 2.python之MySQL mysql-connector 3.python之表格Openpyxl 4.python之字符命令argparse 5.python之Html及xml文档解析beatifulSoup 6.python之数据库ORM Peewee 7.python之日志logg</description>
+    </item>
+    
+  </channel>
+</rss>

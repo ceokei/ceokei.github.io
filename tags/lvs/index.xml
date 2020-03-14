@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LVS on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/lvs/</link>
+    <description>Recent content in LVS on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 13 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/lvs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nginx Lvs Haproxy 高可用负载对比</title>
+      <link>https://lnfiber.xyz/post/load-balancer/nginx-lvs-haproxy-diff/</link>
+      <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/load-balancer/nginx-lvs-haproxy-diff/</guid>
+      <description>1. 前言 负载高可用的软件包挺多的，目前市场线上环境用的较多的负载均衡器，硬件上有 F5、BIG-IP、TP-LINK、Barracuda，软件上为：LVS、Nginx，HAProxy,高可用则为：Heartbeat(现为Pacemaker)、Corosync、Keepalived，成熟就要数：</description>
+    </item>
+    
+  </channel>
+</rss>

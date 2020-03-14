@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>组网内容 on Kei的记录本</title>
+    <link>https://lnfiber.xyz/categories/%E7%BB%84%E7%BD%91%E5%86%85%E5%AE%B9/</link>
+    <description>Recent content in 组网内容 on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 12 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/categories/%E7%BB%84%E7%BD%91%E5%86%85%E5%AE%B9/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux指定源IP测试网络</title>
+      <link>https://lnfiber.xyz/post/linux_ping_source/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/linux_ping_source/</guid>
+      <description>PING ping -I 192.168.1.30 114.114.114.114 ping -I 192.168.10.30 114.114.114.114 wget wget --bind-address=127.0.0.1 网址 curl curl --interface &amp;lt;eth0|IP&amp;gt; 网址 curl --interface 192.168.1.30 cip.cc curl --interface 192.168.10.30 cip.cc</description>
+    </item>
+    
+    <item>
+      <title>Linux中配置ipv4优先解析</title>
+      <link>https://lnfiber.xyz/post/linux_ipv4_priority_setting/</link>
+      <pubDate>Sun, 09 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/linux_ipv4_priority_setting/</guid>
+      <description>默认不修改情况下，如linux主机中有ipv6地址， 会优先走ipv6通道，例如debian的源dns解析会默认返回AAAA记录(ipv6)，要使用ipv4 连接优先而不必禁用ipv6，需要修改gai.conf配置文件使其生效。 debian系：修改/etc/gai.conf，取消下面这一行的注</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zabbix on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/zabbix/</link>
+    <description>Recent content in Zabbix on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 12 Nov 2019 11:28:56 +0800</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/zabbix/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>C.Zabbix</title>
+      <link>https://lnfiber.xyz/zabbix/index-zabbix/</link>
+      <pubDate>Tue, 12 Nov 2019 11:28:56 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/zabbix/index-zabbix/</guid>
+      <description>zabbix 监控系统配置 1.Zabbix系统部署MySQL,Nginx篇 2.Zabbix系统之WEB监测 [3.Zabbix系列之磁盘IO监控] [4.Zabbix系统之MySQL监控] [5.Zabbix系统之MySQL同步监控] [6.Zabbix系统之短信邮件预警]</description>
+    </item>
+    
+    <item>
+      <title>zabbix系统之WEB监测</title>
+      <link>https://lnfiber.xyz/zabbix/zabbix-web-monitor/</link>
+      <pubDate>Tue, 12 Nov 2019 11:28:56 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/zabbix/zabbix-web-monitor/</guid>
+      <description>更详细的可以移步此处:http://www.51niux.com/?id=152</description>
+    </item>
+    
+    <item>
+      <title>zabbix配置nginx和mysql篇</title>
+      <link>https://lnfiber.xyz/zabbix/zabbix-with-nginx/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/zabbix/zabbix-with-nginx/</guid>
+      <description>Zabbix LTS MySQL Nginx 部署 OS: Debian Stretch Ver: Zabbix 4.0 LTS Nginx Mariadb 本次环境主机： IP 主机名 备注 192.168.10.30 zabbix Server 192.168.1.3 vps client 软件配置 1. 按官方指示配置源 (服务端及客户端都要操作) 官方安装指示点击此处 # wget https://repo.zabbix.com/zabbix/4.0/debian/pool/main/z/zabbix-release/zabbix-release_4.0-3+stretch_all.deb # dpkg -i zabbix-release_4.0-3+stretch_all.deb # apt update 2. 默认环境安装相应的包（服务端） ＃个人喜欢Nginx，所以这里就不能按官方的指示安装，那样的话，会默认采用apache。 # 当然你安</description>
+    </item>
+    
+  </channel>
+</rss>

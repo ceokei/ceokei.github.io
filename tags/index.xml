@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/</link>
+    <description>Recent content in Tags on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 13 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>haproxy</title>
+      <link>https://lnfiber.xyz/tags/haproxy/</link>
+      <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/haproxy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://lnfiber.xyz/tags/linux/</link>
+      <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LVS</title>
+      <link>https://lnfiber.xyz/tags/lvs/</link>
+      <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/lvs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nginx</title>
+      <link>https://lnfiber.xyz/tags/nginx/</link>
+      <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>proxmox</title>
+      <link>https://lnfiber.xyz/tags/proxmox/</link>
+      <pubDate>Thu, 12 Mar 2020 11:16:27 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/proxmox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://lnfiber.xyz/tags/docker/</link>
+      <pubDate>Mon, 30 Dec 2019 21:46:12 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Openshift</title>
+      <link>https://lnfiber.xyz/tags/openshift/</link>
+      <pubDate>Mon, 30 Dec 2019 21:46:12 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/openshift/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zabbix</title>
+      <link>https://lnfiber.xyz/tags/zabbix/</link>
+      <pubDate>Tue, 12 Nov 2019 11:28:56 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/zabbix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jupyter</title>
+      <link>https://lnfiber.xyz/tags/jupyter/</link>
+      <pubDate>Fri, 08 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/jupyter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://lnfiber.xyz/tags/python/</link>
+      <pubDate>Tue, 05 Nov 2019 22:25:03 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rabbitmq</title>
+      <link>https://lnfiber.xyz/tags/rabbitmq/</link>
+      <pubDate>Tue, 15 Oct 2019 13:52:46 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/rabbitmq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cache</title>
+      <link>https://lnfiber.xyz/tags/cache/</link>
+      <pubDate>Sun, 15 Sep 2019 21:05:31 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/cache/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hadoop</title>
+      <link>https://lnfiber.xyz/tags/hadoop/</link>
+      <pubDate>Sat, 14 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/hadoop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://lnfiber.xyz/tags/golang/</link>
+      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GlusterFS</title>
+      <link>https://lnfiber.xyz/tags/glusterfs/</link>
+      <pubDate>Sat, 12 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/glusterfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bash</title>
+      <link>https://lnfiber.xyz/tags/bash/</link>
+      <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/bash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>curl</title>
+      <link>https://lnfiber.xyz/tags/curl/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/curl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ping</title>
+      <link>https://lnfiber.xyz/tags/ping/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/ping/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>wget</title>
+      <link>https://lnfiber.xyz/tags/wget/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/wget/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ipv4</title>
+      <link>https://lnfiber.xyz/tags/ipv4/</link>
+      <pubDate>Sun, 09 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/ipv4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Asterisk</title>
+      <link>https://lnfiber.xyz/tags/asterisk/</link>
+      <pubDate>Thu, 11 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/asterisk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CTI</title>
+      <link>https://lnfiber.xyz/tags/cti/</link>
+      <pubDate>Thu, 11 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/tags/cti/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

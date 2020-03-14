@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Kei的记录本</title>
+    <link>https://lnfiber.xyz/post/</link>
+    <description>Recent content in Posts on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 13 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nginx Lvs Haproxy 高可用负载对比</title>
+      <link>https://lnfiber.xyz/post/load-balancer/nginx-lvs-haproxy-diff/</link>
+      <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/load-balancer/nginx-lvs-haproxy-diff/</guid>
+      <description>1. 前言 负载高可用的软件包挺多的，目前市场线上环境用的较多的负载均衡器，硬件上有 F5、BIG-IP、TP-LINK、Barracuda，软件上为：LVS、Nginx，HAProxy,高可用则为：Heartbeat(现为Pacemaker)、Corosync、Keepalived，成熟就要数：</description>
+    </item>
+    
+    <item>
+      <title>PVE 更正web ui中节点名称</title>
+      <link>https://lnfiber.xyz/post/pve/chang-hostname/</link>
+      <pubDate>Thu, 12 Mar 2020 11:16:27 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/pve/chang-hostname/</guid>
+      <description>1. 前提 当我们部署完时，却发现主机名，及集群下面的节点名称，不符合预期希望，需要更正名称。则可以参考此法： 2. proxmox 名称修改 以下终端下面操作（web ui无法处理）： # hostnamectl set-hostname newhostname # nano /etc/hosts 映射新的对应IP及主机名 第二步，备份相应目录，继续操作 # cp /etc/pve/qemu-server/*.conf /root/backup/qemu # cp /etc/pve/lxc/*.conf /root/backup/lxc # cp /etc/pve/nodes/旧名称/* /root/backup/nodes/bak/ 第三</description>
+    </item>
+    
+    <item>
+      <title>Centos Openshift Paas 虚拟平台部署</title>
+      <link>https://lnfiber.xyz/post/centos/centos-openshift-paas/</link>
+      <pubDate>Mon, 30 Dec 2019 21:46:12 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/centos/centos-openshift-paas/</guid>
+      <description>OKD部署 Openshift版本（虚拟化管理平台）： OpenShift Container Platform(Enterprise-OCP) 企业版 Origin Community Distribution of Kubernetes(OKD) 开源版 实验的软硬件环境情况： OS: centos 7 Ver: 3.11 Master node has up to 16G memory and up to 4 vCPU. Compute node has up to 8G memory and up to 1 vCPU. /var master最小40G，node 最小15G，etcd 最小20G 主机类型 主机名 IP地址 操作系统 master,etcd master.lnfiber.xyz 192.168.122.96 centos 7 node node01.lnfiber.xyz 192.168.122.97 centos 7 node node02.lnfiber.xyz 192.168.122.98 centos 7 没有D</description>
+    </item>
+    
+    <item>
+      <title>Centos 8 dnf 命令管理</title>
+      <link>https://lnfiber.xyz/post/centos/centos-dnf-cli/</link>
+      <pubDate>Mon, 02 Dec 2019 23:33:58 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/centos/centos-dnf-cli/</guid>
+      <description>dnf包管理命令 # 查看有效的源 [root@localhost ~]# dnf repolist Last metadata expiration check: 2:13:00 ago on Mon 02 Dec 2019 07:34:33 AM EST. repo id repo name status AppStream CentOS-8 - AppStream 5,089 BaseOS CentOS-8 - Base 2,843 # 查看所有源（包括失效关闭的） [root@localhost ~]# dnf repolist all Last metadata expiration check: 2:13:26 ago on Mon 02 Dec 2019 07:34:33 AM EST. repo id repo name status AppStream CentOS-8 - AppStream enabled: 5,089 AppStream-source CentOS-8 - AppStream Sources disabled BaseOS CentOS-8 - Base enabled: 2,843 BaseOS-source CentOS-8 - BaseOS Sources disabled PowerTools CentOS-8 - PowerTools disabled base-debuginfo CentOS-8 - Debuginfo disabled c8-media-AppStream CentOS-AppStream-8 - Media disabled c8-media-BaseOS CentOS-BaseOS-8 - Media disabled centosplus CentOS-8 - Plus disabled centosplus-source CentOS-8 - Plus Sources disabled cr CentOS-8 -</description>
+    </item>
+    
+    <item>
+      <title>jupyter notebooks 配置</title>
+      <link>https://lnfiber.xyz/post/jupyter/jupyter-configure/</link>
+      <pubDate>Fri, 08 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/jupyter/jupyter-configure/</guid>
+      <description>官方文档：https://jupyter.readthedocs.io/en/latest/index.html 以下操作内容，均不在root用户下操作。 也不是通过系统源安装。 配置方法为pip3 virtualenv环境下安装 1. 安装相关包 sudo apt update sudo apt install python3-pip python3-dev python3-virtualenv 「1」修改源改为国内，解决 pip安装慢</description>
+    </item>
+    
+    <item>
+      <title>rabbitmq消息队列</title>
+      <link>https://lnfiber.xyz/post/rabbitmq/01/</link>
+      <pubDate>Tue, 15 Oct 2019 13:52:46 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/rabbitmq/01/</guid>
+      <description>官网：www.rabbitmq.com 1.简介 RabbitMQ是实现了高级消息队列协议（AMQP）的开源消息代理软件（亦称面向消息的中间件）,采用Erlang语言编写。客户端支持C/C++ java net go python php javascript ruby rust等, 支持AJAX，持久化，用于在分布式系统中存储转发消息，在易用性、扩展性、高可</description>
+    </item>
+    
+    <item>
+      <title>大型网站缓存架构简说</title>
+      <link>https://lnfiber.xyz/post/cache/cache_des/</link>
+      <pubDate>Sun, 15 Sep 2019 21:05:31 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/cache/cache_des/</guid>
+      <description>大型分布式网站架构：缓存在分布式系统中的应用 缓存是分布式系统中的重要组件，主要解决高并发，大数据场景下，热点数据访问的性能问题。提供高性能的数据快速访问。 一、缓存概述 缓存是分布式系统中的重要组件，主要解决高并发，大数据场景下，热点数据访问的性能问题。提供高性能的数据快速访问。 1.1缓存的原</description>
+    </item>
+    
+    <item>
+      <title>centos部署hadoop3.x</title>
+      <link>https://lnfiber.xyz/post/hadoop/centos%E9%83%A8%E7%BD%B2hadoop3.x/</link>
+      <pubDate>Sat, 14 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/hadoop/centos%E9%83%A8%E7%BD%B2hadoop3.x/</guid>
+      <description>说明 os: centos 7.0 3 nodes openjdk-1.8.0 所有nodes说明 1) master.lnfiber.xyz (Master Node) 2) node01.lnfiber.xyz(Slave Node) 3) node02.lnfiber.xyz(Slave Node) 所有nodes hosts文件 192.168.100.150 master 192.168.100.151 node01 192.168.100.152 node02 [1] 安装java yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y [2] 所有节点均要创建用户 [root@master ~]# useradd -d /usr/hadoop hadoop [root@master ~]# chmod 755 /usr/hadoop [root@master ~]# passwd hadoop Changing password for user hadoop. New password: Retype new password: passwd: all authentication tokens updated successfully. [3] 在master节点,在hadoop用户下操作, 并配置SSH 免密匙,推送到所有节点中. [hadoop@master</description>
+    </item>
+    
+    <item>
+      <title>Haproxy 配置反代需要注意的事项</title>
+      <link>https://lnfiber.xyz/post/haproxy/haproxy-reverse-proxy/</link>
+      <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/haproxy/haproxy-reverse-proxy/</guid>
+      <description>1. haproxy 配置反代需要注意的事项 haproxy ：开源，支持L4(TCP),L7(http) 第一，业务入口客户端IP，是否需要提交到后端记录 第二，业务是否需要会话持续 第三，后端是否是ssl 第四，前端是否需要ssl,是否需重定向到ssl中 第五，前端是否需要acl,进行域名分路，动静分离，譬如配合squid varnish 2. 示</description>
+    </item>
+    
+    <item>
+      <title>Go中google相关包</title>
+      <link>https://lnfiber.xyz/post/golang/golang_google_packages/</link>
+      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/golang/golang_google_packages/</guid>
+      <description>golang中google包 go get -u golang.org/x/crypto/bcrypt go get -u golang.org/x/crypto/blowfish go get -u golang.org/x/crypto/bn256 go get -u golang.org/x/crypto/cast5 go get -u golang.org/x/crypto/curve25519 go get -u golang.org/x/crypto/hkdf go get -u golang.org/x/crypto/md4 go get -u golang.org/x/crypto/nacl/box go get -u golang.org/x/crypto/nacl/secretbox go get -u golang.org/x/crypto/ocsp go get -u golang.org/x/crypto/openpgp go get -u golang.org/x/crypto/openpgp/armor go get -u golang.org/x/crypto/openpgp/clearsign go get -u golang.org/x/crypto/openpgp/elgamal go get -u golang.org/x/crypto/openpgp/errors go get -u golang.org/x/crypto/openpgp/packet go get -u golang.org/x/crypto/openpgp/s2k go get -u golang.org/x/crypto/otr go get -u golang.org/x/crypto/pbkdf2 go get -u golang.org/x/crypto/poly1305 go get -u golang.org/x/crypto/ripemd160 go get -u golang.org/x/crypto/salsa20 go get -u golang.org/x/crypto/salsa20/salsa go get -u golang.org/x/crypto/scrypt go get -u golang.org/x/crypto/sha3 go get -u golang.org/x/crypto/ssh go get -u golang.org/x/crypto/ssh/agent go get -u golang.org/x/crypto/ssh/terminal go get -u golang.org/x/crypto/ssh/test go get -u golang.org/x/crypto/twofish go get -u golang.org/x/crypto/xtea go get -u golang.org/x/crypto/xts go get -u</description>
+    </item>
+    
+    <item>
+      <title>架构设计-分布文件存储-GlusterFS4.0-部署安装（1）</title>
+      <link>https://lnfiber.xyz/post/glusterfs/20180512/</link>
+      <pubDate>Sat, 12 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/glusterfs/20180512/</guid>
+      <description>GlusterFS4.0部署 OS: Debian stretch Ver: GlusterFS 4.0 &amp;ndash;&amp;gt; glusterfs-client 4.0 不支持 jessie.但兼容旧版本连接 必须不得小于2个节点 本次环境 系统节点： IP 别名 Brick 192.168.10.242 gnode1 /storage/vdb/CTI_DISK1 /storage/vdc/CTI_DISK3 /storage/vdd/CTI_DISK5 192.168.10.244 gnode2 /storage/sdb1/CTI_DISK2 /storage/sdc1/CTI_DISK4 /storage/sdd1/CTI_DISK6 客户端为：test-dev IP 别名 192.168.10.30 test-dev 1. 配置源安装 配置源： Add the GPG key to apt: # wget -O - https://download.gluster.org/pub/gluster/glusterfs/4.0/rsa.pub | apt-key add - # wget -O - https://download.gluster.org/pub/gluster/glusterfs/3.13/rsa.pub | apt-key add - &amp;lt;--客户端不支持jessie,</description>
+    </item>
+    
+    <item>
+      <title>Bash的用法示例记录</title>
+      <link>https://lnfiber.xyz/post/shell/bash-tutorial/</link>
+      <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/shell/bash-tutorial/</guid>
+      <description>1. 文件或目录测试运算符 参数 意义 -b file 检测文件是否是块设备文件 -c file 检测文件是否是字符设备文件 -d file 检测文件是否是目录 -f file 检测文件是否是普通文件 -g file 检测文件是否设置了 SGID 位 -k file 检测文件是否设置了粘着位(Sticky Bit) -p file 检测文件是否是有名管道 -u file 检测文件是否设置了 SUID 位 -r file 检测文件是否可读 -w file 检测文件</description>
+    </item>
+    
+    <item>
+      <title>Linux指定源IP测试网络</title>
+      <link>https://lnfiber.xyz/post/linux_ping_source/</link>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/linux_ping_source/</guid>
+      <description>PING ping -I 192.168.1.30 114.114.114.114 ping -I 192.168.10.30 114.114.114.114 wget wget --bind-address=127.0.0.1 网址 curl curl --interface &amp;lt;eth0|IP&amp;gt; 网址 curl --interface 192.168.1.30 cip.cc curl --interface 192.168.10.30 cip.cc</description>
+    </item>
+    
+    <item>
+      <title>Linux中配置ipv4优先解析</title>
+      <link>https://lnfiber.xyz/post/linux_ipv4_priority_setting/</link>
+      <pubDate>Sun, 09 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/linux_ipv4_priority_setting/</guid>
+      <description>默认不修改情况下，如linux主机中有ipv6地址， 会优先走ipv6通道，例如debian的源dns解析会默认返回AAAA记录(ipv6)，要使用ipv4 连接优先而不必禁用ipv6，需要修改gai.conf配置文件使其生效。 debian系：修改/etc/gai.conf，取消下面这一行的注</description>
+    </item>
+    
+  </channel>
+</rss>

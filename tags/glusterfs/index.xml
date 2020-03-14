@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GlusterFS on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/glusterfs/</link>
+    <description>Recent content in GlusterFS on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 12 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/glusterfs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>架构设计-分布文件存储-GlusterFS4.0-部署安装（1）</title>
+      <link>https://lnfiber.xyz/post/glusterfs/20180512/</link>
+      <pubDate>Sat, 12 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/glusterfs/20180512/</guid>
+      <description>GlusterFS4.0部署 OS: Debian stretch Ver: GlusterFS 4.0 &amp;ndash;&amp;gt; glusterfs-client 4.0 不支持 jessie.但兼容旧版本连接 必须不得小于2个节点 本次环境 系统节点： IP 别名 Brick 192.168.10.242 gnode1 /storage/vdb/CTI_DISK1 /storage/vdc/CTI_DISK3 /storage/vdd/CTI_DISK5 192.168.10.244 gnode2 /storage/sdb1/CTI_DISK2 /storage/sdc1/CTI_DISK4 /storage/sdd1/CTI_DISK6 客户端为：test-dev IP 别名 192.168.10.30 test-dev 1. 配置源安装 配置源： Add the GPG key to apt: # wget -O - https://download.gluster.org/pub/gluster/glusterfs/4.0/rsa.pub | apt-key add - # wget -O - https://download.gluster.org/pub/gluster/glusterfs/3.13/rsa.pub | apt-key add - &amp;lt;--客户端不支持jessie,</description>
+    </item>
+    
+  </channel>
+</rss>

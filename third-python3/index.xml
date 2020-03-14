@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Third-python3s on Kei的记录本</title>
+    <link>https://lnfiber.xyz/third-python3/</link>
+    <description>Recent content in Third-python3s on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 05 Nov 2019 22:25:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/third-python3/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Yagmail-邮件发送包</title>
+      <link>https://lnfiber.xyz/third-python3/yagmail/</link>
+      <pubDate>Tue, 05 Nov 2019 22:25:03 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/third-python3/yagmail/</guid>
+      <description>[1] 包所在地址 https://github.com/kootenpv/yagmail [2] 包安装 pip3 install yagmail [3] 包用法 #!/bin/python3 # 邮件正文，html中嵌入sound,vedio images file contents = [&amp;#39;This is the body, and here is just text http://somedomain/image.png&amp;#39;, &amp;#39;You can find an audio file attached.&amp;#39;, &amp;#39;/local/path/song.mp3&amp;#39;] # smtp starttls认证 yag = yagmail.SMTP(user=&amp;#34;aaa@163.com&amp;#34;,password=&amp;#34;123&amp;#34;,host=&amp;#34;smtp.163.com&amp;#34;,port=587,smtp_starttls=True, smtp_ssl=False) # smtp plain认证 yag = yagmail.SMTP(user=&amp;#34;aaa@163.com&amp;#34;,password=&amp;#34;123&amp;#34;,host=&amp;#34;smtp.163.com&amp;#34;,port=25,smtp_starttls=False, smtp_ssl=False) status = yag.send(to=&amp;#34;bbb@163.com&amp;#34;,title=&amp;#34;邮件标题</description>
+    </item>
+    
+  </channel>
+</rss>

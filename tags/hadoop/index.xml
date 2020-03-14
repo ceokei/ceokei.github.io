@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hadoop on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/hadoop/</link>
+    <description>Recent content in hadoop on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 14 Sep 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/hadoop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>centos部署hadoop3.x</title>
+      <link>https://lnfiber.xyz/post/hadoop/centos%E9%83%A8%E7%BD%B2hadoop3.x/</link>
+      <pubDate>Sat, 14 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/hadoop/centos%E9%83%A8%E7%BD%B2hadoop3.x/</guid>
+      <description>说明 os: centos 7.0 3 nodes openjdk-1.8.0 所有nodes说明 1) master.lnfiber.xyz (Master Node) 2) node01.lnfiber.xyz(Slave Node) 3) node02.lnfiber.xyz(Slave Node) 所有nodes hosts文件 192.168.100.150 master 192.168.100.151 node01 192.168.100.152 node02 [1] 安装java yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y [2] 所有节点均要创建用户 [root@master ~]# useradd -d /usr/hadoop hadoop [root@master ~]# chmod 755 /usr/hadoop [root@master ~]# passwd hadoop Changing password for user hadoop. New password: Retype new password: passwd: all authentication tokens updated successfully. [3] 在master节点,在hadoop用户下操作, 并配置SSH 免密匙,推送到所有节点中. [hadoop@master</description>
+    </item>
+    
+  </channel>
+</rss>

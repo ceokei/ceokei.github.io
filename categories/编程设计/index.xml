@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>编程设计 on Kei的记录本</title>
+    <link>https://lnfiber.xyz/categories/%E7%BC%96%E7%A8%8B%E8%AE%BE%E8%AE%A1/</link>
+    <description>Recent content in 编程设计 on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 08 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/categories/%E7%BC%96%E7%A8%8B%E8%AE%BE%E8%AE%A1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>jupyter notebooks 配置</title>
+      <link>https://lnfiber.xyz/post/jupyter/jupyter-configure/</link>
+      <pubDate>Fri, 08 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/jupyter/jupyter-configure/</guid>
+      <description>官方文档：https://jupyter.readthedocs.io/en/latest/index.html 以下操作内容，均不在root用户下操作。 也不是通过系统源安装。 配置方法为pip3 virtualenv环境下安装 1. 安装相关包 sudo apt update sudo apt install python3-pip python3-dev python3-virtualenv 「1」修改源改为国内，解决 pip安装慢</description>
+    </item>
+    
+    <item>
+      <title>Yagmail-邮件发送包</title>
+      <link>https://lnfiber.xyz/third-python3/yagmail/</link>
+      <pubDate>Tue, 05 Nov 2019 22:25:03 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/third-python3/yagmail/</guid>
+      <description>[1] 包所在地址 https://github.com/kootenpv/yagmail [2] 包安装 pip3 install yagmail [3] 包用法 #!/bin/python3 # 邮件正文，html中嵌入sound,vedio images file contents = [&amp;#39;This is the body, and here is just text http://somedomain/image.png&amp;#39;, &amp;#39;You can find an audio file attached.&amp;#39;, &amp;#39;/local/path/song.mp3&amp;#39;] # smtp starttls认证 yag = yagmail.SMTP(user=&amp;#34;aaa@163.com&amp;#34;,password=&amp;#34;123&amp;#34;,host=&amp;#34;smtp.163.com&amp;#34;,port=587,smtp_starttls=True, smtp_ssl=False) # smtp plain认证 yag = yagmail.SMTP(user=&amp;#34;aaa@163.com&amp;#34;,password=&amp;#34;123&amp;#34;,host=&amp;#34;smtp.163.com&amp;#34;,port=25,smtp_starttls=False, smtp_ssl=False) status = yag.send(to=&amp;#34;bbb@163.com&amp;#34;,title=&amp;#34;邮件标题</description>
+    </item>
+    
+    <item>
+      <title>The third&#39;s Packages for Python3</title>
+      <link>https://lnfiber.xyz/index-third-packages-python3/</link>
+      <pubDate>Tue, 05 Nov 2019 22:07:56 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/index-third-packages-python3/</guid>
+      <description>python常用第三方包 1.python之邮件发送 yagmail 2.python之MySQL mysql-connector 3.python之表格Openpyxl 4.python之字符命令argparse 5.python之Html及xml文档解析beatifulSoup 6.python之数据库ORM Peewee 7.python之日志logg</description>
+    </item>
+    
+    <item>
+      <title>Bash的用法示例记录</title>
+      <link>https://lnfiber.xyz/post/shell/bash-tutorial/</link>
+      <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/shell/bash-tutorial/</guid>
+      <description>1. 文件或目录测试运算符 参数 意义 -b file 检测文件是否是块设备文件 -c file 检测文件是否是字符设备文件 -d file 检测文件是否是目录 -f file 检测文件是否是普通文件 -g file 检测文件是否设置了 SGID 位 -k file 检测文件是否设置了粘着位(Sticky Bit) -p file 检测文件是否是有名管道 -u file 检测文件是否设置了 SUID 位 -r file 检测文件是否可读 -w file 检测文件</description>
+    </item>
+    
+  </channel>
+</rss>

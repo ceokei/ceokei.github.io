@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jupyter on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/jupyter/</link>
+    <description>Recent content in jupyter on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 08 Nov 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/jupyter/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>jupyter notebooks 配置</title>
+      <link>https://lnfiber.xyz/post/jupyter/jupyter-configure/</link>
+      <pubDate>Fri, 08 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/jupyter/jupyter-configure/</guid>
+      <description>官方文档：https://jupyter.readthedocs.io/en/latest/index.html 以下操作内容，均不在root用户下操作。 也不是通过系统源安装。 配置方法为pip3 virtualenv环境下安装 1. 安装相关包 sudo apt update sudo apt install python3-pip python3-dev python3-virtualenv 「1」修改源改为国内，解决 pip安装慢</description>
+    </item>
+    
+  </channel>
+</rss>

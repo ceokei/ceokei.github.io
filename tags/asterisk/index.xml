@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Asterisk on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/asterisk/</link>
+    <description>Recent content in Asterisk on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 11 Aug 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/asterisk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Asterisk Modules 说明</title>
+      <link>https://lnfiber.xyz/cti/asterisk/asterisk-modules-info/</link>
+      <pubDate>Thu, 11 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/cti/asterisk/asterisk-modules-info/</guid>
+      <description>modules 模块解释 app_adsiprog.so =&amp;gt; (Asterisk ADSI Programming Application) ——用于支持模拟显示服务接口的终端设备，在终端屏幕上操作菜单等。 app_amd.so =&amp;gt; (Answering Machine Detection Application) ——用于外呼时终端应答状态检测 app_authenticate.so =&amp;gt; (Authentication Application) ——Asterisk用户认证，以文本形式存储用户密码 app_cdr.so =&amp;gt; (Tell Asterisk to not maintain a CDR for the current call) ——通知Asterisk不用为当前通话维护通话详单记录表 app_chanisavail.so =&amp;gt; (Check channel availability) ——检查通</description>
+    </item>
+    
+    <item>
+      <title>Asterisk Call Parking 呼叫泊停</title>
+      <link>https://lnfiber.xyz/cti/asterisk/asterisk-call-parking/</link>
+      <pubDate>Sun, 03 Jul 2016 15:36:37 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/cti/asterisk/asterisk-call-parking/</guid>
+      <description>HowTos:Asterisk Call Parking 呼叫停泊功能配置 配置features.conf blindxfer=## ;转接开始的前缀 atxfer=*2 电话转接功能的时间间隔调节： 1.转接代码的按钮时间间隔(##或*2) 修改 features.conf，如果是FreePbx则修改features_general_custom.conf。 ; Max time (ms) between digits for ; feature activation. Default is 500 featuredigittimeout = 1500 2</description>
+    </item>
+    
+    <item>
+      <title>Asterisk Dailplain</title>
+      <link>https://lnfiber.xyz/cti/asterisk/asterisk-dailplain/</link>
+      <pubDate>Sun, 03 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/cti/asterisk/asterisk-dailplain/</guid>
+      <description>asterisk extension.conf 拨号计划语法 [default] ;;这个是卡片context exten =&amp;gt; ;;;这为执行命令, exten =&amp;gt; name,priority,application() 分机的名字（或号码） 优先级（分机包含很多步骤；步骤的序号被称为“优先级”）,连续序号可用n动态表示 应用程序（或者说命令），该步骤要执行的动作,详细看Dial() Application 示例： 优先级 不编号的优先级 “same =&amp;gt;”同执</description>
+    </item>
+    
+    <item>
+      <title>Asterisk-install</title>
+      <link>https://lnfiber.xyz/cti/asterisk/asterisk-install/</link>
+      <pubDate>Sun, 03 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/cti/asterisk/asterisk-install/</guid>
+      <description>HowTos: Asterisk install 选择版本安装 安装相应依赖 make menuselect 官方版本：http://downloads.asterisk.org/pub/telephony/asterisk/releases/ #下载13.9.1 pjsip: http://www.pjsip.org/release/2.5.1/pjproject-2.5.1.tar.bz2 保持系统最新 apt-get update &amp;amp;&amp;amp; apt-get upgrade -y 解决系统依赖包 gcc..: apt-get -y install build-essential subversion git pjproject source cd /usr/src/ git clone https://github.com/asterisk/pjproject.git or wget http://www.pjsip.org/release/2.5.1/pjproject-2.5.1.tar.bz2 tar -jxvf pjproject-* cd pjproject ./configure --enable-shared --disable-sound --disable-resample --disable-video --disable-opencore-amr make dep &amp;amp;&amp;amp;</description>
+    </item>
+    
+    <item>
+      <title>Asterisk IVR MENU</title>
+      <link>https://lnfiber.xyz/cti/asterisk/asterisk-ivr-menu/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/cti/asterisk/asterisk-ivr-menu/</guid>
+      <description>第3堂 Asterisk IVR MENU 逻辑编程 情景:A呼叫B单位,A将听到如此播放声音:欢迎致电XXX,请拨打内线号码,或人工服务请按0 A按0,提示:为了提高服务质量,本次通话将会被录音.请稍后,正在为你接通. 入局,播放IVR欢迎词,A选择,系统播放相应的提示音,执行相应的业务逻辑 前提,由于IVR 某些业务会用到其它</description>
+    </item>
+    
+  </channel>
+</rss>

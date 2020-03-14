@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/docker/</link>
+    <description>Recent content in Docker on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 30 Dec 2019 21:46:12 +0800</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Centos Openshift Paas 虚拟平台部署</title>
+      <link>https://lnfiber.xyz/post/centos/centos-openshift-paas/</link>
+      <pubDate>Mon, 30 Dec 2019 21:46:12 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/centos/centos-openshift-paas/</guid>
+      <description>OKD部署 Openshift版本（虚拟化管理平台）： OpenShift Container Platform(Enterprise-OCP) 企业版 Origin Community Distribution of Kubernetes(OKD) 开源版 实验的软硬件环境情况： OS: centos 7 Ver: 3.11 Master node has up to 16G memory and up to 4 vCPU. Compute node has up to 8G memory and up to 1 vCPU. /var master最小40G，node 最小15G，etcd 最小20G 主机类型 主机名 IP地址 操作系统 master,etcd master.lnfiber.xyz 192.168.122.96 centos 7 node node01.lnfiber.xyz 192.168.122.97 centos 7 node node02.lnfiber.xyz 192.168.122.98 centos 7 没有D</description>
+    </item>
+    
+  </channel>
+</rss>

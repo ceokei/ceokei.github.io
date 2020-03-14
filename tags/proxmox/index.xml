@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>proxmox on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/proxmox/</link>
+    <description>Recent content in proxmox on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 12 Mar 2020 11:16:27 +0800</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/proxmox/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PVE 更正web ui中节点名称</title>
+      <link>https://lnfiber.xyz/post/pve/chang-hostname/</link>
+      <pubDate>Thu, 12 Mar 2020 11:16:27 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/pve/chang-hostname/</guid>
+      <description>1. 前提 当我们部署完时，却发现主机名，及集群下面的节点名称，不符合预期希望，需要更正名称。则可以参考此法： 2. proxmox 名称修改 以下终端下面操作（web ui无法处理）： # hostnamectl set-hostname newhostname # nano /etc/hosts 映射新的对应IP及主机名 第二步，备份相应目录，继续操作 # cp /etc/pve/qemu-server/*.conf /root/backup/qemu # cp /etc/pve/lxc/*.conf /root/backup/lxc # cp /etc/pve/nodes/旧名称/* /root/backup/nodes/bak/ 第三</description>
+    </item>
+    
+  </channel>
+</rss>

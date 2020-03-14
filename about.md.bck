@@ -1,0 +1,21 @@
++++
+title= "D.关于"
+date= 2017-04-09
+authorbox= false
+sidebar= false
+toc=false
+menu="main"
++++
+
+### kei 的简介.
+```
+
+ - 过去从事基础设施组网与系统管理工作，主要围绕windows 系统环境，各硬件路由及交换机环境。
+ - 目前就职于某互联网教育行业网络公司，系统运维工程师一职，主要管理各业务技术架构,虚拟化平台管理，CTI开发，系统监控，为系统业务的稳定提供技术支撑以及预研应对未来的技术。
+ 主要是围绕Linux Server系统环境云技术应用，譬如缓存，消息队列，数据库中间件，分布存储，运维自动化，代码上线部署持续集成技术
+ （git, LNMP，LVS，haproxy,squid,MySQL MGR PXC，redis,rabbitmq,proxysql，glusterfs,go-fastfs,zabbix，proxomoxVE,Docker..)
+ * 目前掌握编程语言有：BASH，PHP，GOLANG，LUA，PYTHON，AU3。
+ * 目前常用框架有PHP的ci,前端的layui,golang的gf等
+ * 当前开始学习ITIL与DEVOPS服务管理内容。
+ 
+```

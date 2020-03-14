@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>haproxy on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/haproxy/</link>
+    <description>Recent content in haproxy on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 13 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nginx Lvs Haproxy 高可用负载对比</title>
+      <link>https://lnfiber.xyz/post/load-balancer/nginx-lvs-haproxy-diff/</link>
+      <pubDate>Fri, 13 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/load-balancer/nginx-lvs-haproxy-diff/</guid>
+      <description>1. 前言 负载高可用的软件包挺多的，目前市场线上环境用的较多的负载均衡器，硬件上有 F5、BIG-IP、TP-LINK、Barracuda，软件上为：LVS、Nginx，HAProxy,高可用则为：Heartbeat(现为Pacemaker)、Corosync、Keepalived，成熟就要数：</description>
+    </item>
+    
+    <item>
+      <title>Haproxy 配置反代需要注意的事项</title>
+      <link>https://lnfiber.xyz/post/haproxy/haproxy-reverse-proxy/</link>
+      <pubDate>Wed, 12 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/haproxy/haproxy-reverse-proxy/</guid>
+      <description>1. haproxy 配置反代需要注意的事项 haproxy ：开源，支持L4(TCP),L7(http) 第一，业务入口客户端IP，是否需要提交到后端记录 第二，业务是否需要会话持续 第三，后端是否是ssl 第四，前端是否需要ssl,是否需重定向到ssl中 第五，前端是否需要acl,进行域名分路，动静分离，譬如配合squid varnish 2. 示</description>
+    </item>
+    
+  </channel>
+</rss>

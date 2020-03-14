@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Asterisk-install - Kei的记录本</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	
+	<meta name="description" content="">
+	<meta name="generator" content="Hugo 0.65.3" />
+	<meta property="og:title" content="Asterisk-install" />
+<meta property="og:description" content="HowTos: Asterisk install 选择版本安装 安装相应依赖 make menuselect 官方版本：http://downloads.asterisk.org/pub/telephony/asterisk/releases/ #下载13.9.1 pjsip: http://www.pjsip.org/release/2.5.1/pjproject-2.5.1.tar.bz2 保持系统最新 apt-get update &amp;&amp; apt-get upgrade -y 解决系统依赖包 gcc..: apt-get -y install build-essential subversion git pjproject source cd /usr/src/ git clone https://github.com/asterisk/pjproject.git or wget http://www.pjsip.org/release/2.5.1/pjproject-2.5.1.tar.bz2 tar -jxvf pjproject-* cd pjproject ./configure --enable-shared --disable-sound --disable-resample --disable-video --disable-opencore-amr make dep &amp;&amp;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lnfiber.xyz/cti/asterisk/asterisk-install/" />
+<meta property="article:published_time" content="2016-07-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-07-03T00:00:00+00:00" />
+
+	
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">	
+	<link rel="stylesheet" type="text/css" href="/css/highlight.css">
+	
+	
+	<link rel="stylesheet" href="/css/share.min.css">
+	<script src="/js/social-share.min.js"></script>
+	<script src="/js/qrcode.js"></script>
+	
+	<link rel="stylesheet" href="/css/custom.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+	
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo">
+			<a class="logo__link" href="/" title="Kei的记录本" rel="home">
+			<div class="logo__title">Kei的记录本</div>			
+				<div class="logo__tagline">工作日常记录...!</div> 
+			</a>
+			
+			<div class="float_right"><div class="social-share"></div>
+  <br/></div>
+			
+		</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">选择</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/post/">A.kei的记录</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/index-asterisk-info/">B.CTI</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/zabbix/index-zabbix/">C.Zabbix</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Asterisk-install</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg>
+	<time class="meta__text" datetime="2016-07-03T00:00:00">2016年07月</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/asterisk" rel="category">Asterisk</a></span>
+</div>
+</div>
+		</header>
+
+  
+    <div class="toc">
+        <div class="toc__title"><span id="toc_menu_tip">展开书签</span></div>
+        <div class="toc__menu">
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#howtos-asterisk-install-">HowTos: Asterisk install</a>
+      <ul>
+        <li><a href="#保持系统最新-">保持系统最新</a></li>
+        <li><a href="#pjproject-source-">pjproject source</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>  
+    </div>
+    <script type="text/javascript">
+    $(".toc__title").click( function () {
+      if($(".toc__menu").css('display') == 'none') {
+        $(".toc__menu").show(); 
+        $("#toc_menu_tip").html("收起书签");
+      } else {
+        $(".toc__menu").hide(); 
+        $("#toc_menu_tip").html("展开书签");
+      }
+    });
+    </script>
+  
+<div class="content post__content clearfix">
+			<h2 id="howtos-asterisk-install-">HowTos: Asterisk install</h2>
+<ul>
+<li>选择版本安装</li>
+<li>安装相应依赖</li>
+<li>make menuselect</li>
+</ul>
+<ul>
+<li>官方版本：http://downloads.asterisk.org/pub/telephony/asterisk/releases/    #下载13.9.1</li>
+<li>pjsip: <a href="http://www.pjsip.org/release/2.5.1/pjproject-2.5.1.tar.bz2">http://www.pjsip.org/release/2.5.1/pjproject-2.5.1.tar.bz2</a></li>
+</ul>
+<h3 id="保持系统最新-">保持系统最新</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-get update <span style="color:#f92672">&amp;&amp;</span> apt-get upgrade -y
+</code></pre></div><p>解决系统依赖包 gcc..:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-get -y install build-essential subversion git
+</code></pre></div><h3 id="pjproject-source-">pjproject source</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /usr/src/
+git clone https://github.com/asterisk/pjproject.git
+or 
+wget http://www.pjsip.org/release/2.5.1/pjproject-2.5.1.tar.bz2
+tar -jxvf pjproject-*
+cd pjproject
+./configure --enable-shared --disable-sound --disable-resample --disable-video --disable-opencore-amr
+make dep <span style="color:#f92672">&amp;&amp;</span> make <span style="color:#f92672">&amp;&amp;</span> make install
+</code></pre></div><p>Download and unpack DAHDI</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget http://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-current.tar.gz
+tar zxvf dahdi-linux-complete-current.tar.gz
+cd dahdi-linux-complete-2.10.0.1+2.10.0.1/
+make all
+make install
+make config
+</code></pre></div><p>LIBPRI :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget http://downloads.asterisk.org/pub/telephony/libpri/libpri-1.4-current.tar.gz
+tar zxvf libpri-1.4-current.tar.gz
+cd libpri-1.4.15/
+make
+make install
+</code></pre></div><p>asterisk-current:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-13-current.tar.gz
+tar -zxvf asterisk-13-current.tar.gz
+cd asterisk-current*
+<span style="color:#75715e">#Add mp3 support</span>
+contrib/scripts/get_mp3_source.sh
+ln -s addons/mp3 mp3
+<span style="color:#75715e">#检查依赖：</span>
+./contrib/scripts/install_prereq install 
+./contrib/scripts/install_prereq install-unpackaged
+./bootstrap.sh
+./configure --enable-realtime-only --enable-error-concealment --disable-examples --enable-opus --enable-vp8 --enable-pic --enable-shared  
+make menuselect <span style="color:#75715e">#adds-one 的所有项选上,选上format_mp3</span>
+
+<span style="color:#75715e">#注意用到fax功能的，要选上res_fax。</span>
+make <span style="color:#f92672">&amp;&amp;</span> make install 
+make config
+</code></pre></div><p>“indications.conf和asterisk.conf”
+indications.conf</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>general<span style="color:#f92672">]</span>
+country<span style="color:#f92672">=</span>cn              ; default location
+</code></pre></div><p>module.conf</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat &gt;&gt; /etc/asterisk/modules.conf
+
+; The modules.conf file, used to define which modules Asterisk should load <span style="color:#f92672">(</span>or 
+; not load<span style="color:#f92672">)</span>.
+;
+<span style="color:#f92672">[</span>modules<span style="color:#f92672">]</span>
+autoload<span style="color:#f92672">=</span>yes
+
+; Resource modules currently not needed
+noload <span style="color:#f92672">=</span>&gt; res_speech.so
+noload <span style="color:#f92672">=</span>&gt; res_phoneprov.so
+noload <span style="color:#f92672">=</span>&gt; res_ael_share.so
+noload <span style="color:#f92672">=</span>&gt; res_clialiases.so
+noload <span style="color:#f92672">=</span>&gt; res_adsi.so
+
+; PBX modules currently not needed
+noload <span style="color:#f92672">=</span>&gt; pbx_ael.so
+noload <span style="color:#f92672">=</span>&gt; pbx_dundi.so
+
+; Channel modules currently not needed
+noload <span style="color:#f92672">=</span>&gt; chan_oss.so
+noload <span style="color:#f92672">=</span>&gt; chan_mgcp.so
+noload <span style="color:#f92672">=</span>&gt; chan_skinny.so
+noload <span style="color:#f92672">=</span>&gt; chan_phone.so
+noload <span style="color:#f92672">=</span>&gt; chan_agent.so
+noload <span style="color:#f92672">=</span>&gt; chan_unistim.so
+noload <span style="color:#f92672">=</span>&gt; chan_alsa.so
+
+; Application modules currently not needed
+noload <span style="color:#f92672">=</span>&gt; app_nbscat.so
+noload <span style="color:#f92672">=</span>&gt; app_amd.so
+noload <span style="color:#f92672">=</span>&gt; app_minivm.so
+noload <span style="color:#f92672">=</span>&gt; app_zapateller.so
+noload <span style="color:#f92672">=</span>&gt; app_ices.so
+noload <span style="color:#f92672">=</span>&gt; app_sendtext.so
+noload <span style="color:#f92672">=</span>&gt; app_speech_utils.so
+noload <span style="color:#f92672">=</span>&gt; app_mp3.so
+noload <span style="color:#f92672">=</span>&gt; app_flash.so
+noload <span style="color:#f92672">=</span>&gt; app_getcpeid.so
+noload <span style="color:#f92672">=</span>&gt; app_setcallerid.so
+noload <span style="color:#f92672">=</span>&gt; app_adsiprog.so
+noload <span style="color:#f92672">=</span>&gt; app_forkcdr.so
+noload <span style="color:#f92672">=</span>&gt; app_sms.so
+noload <span style="color:#f92672">=</span>&gt; app_morsecode.so
+noload <span style="color:#f92672">=</span>&gt; app_followme.so
+noload <span style="color:#f92672">=</span>&gt; app_url.so
+noload <span style="color:#f92672">=</span>&gt; app_alarmreceiver.so
+noload <span style="color:#f92672">=</span>&gt; app_disa.so
+noload <span style="color:#f92672">=</span>&gt; app_dahdiras.so
+noload <span style="color:#f92672">=</span>&gt; app_senddtmf.so
+noload <span style="color:#f92672">=</span>&gt; app_sayunixtime.so
+noload <span style="color:#f92672">=</span>&gt; app_test.so
+noload <span style="color:#f92672">=</span>&gt; app_externalivr.so
+noload <span style="color:#f92672">=</span>&gt; app_image.so
+noload <span style="color:#f92672">=</span>&gt; app_dictate.so
+noload <span style="color:#f92672">=</span>&gt; app_festival.so
+</code></pre></div><hr>
+<p>添加asterisk:asterisk ,并将Asterisk改由asterisk 用户运行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">adduser asterisk --disabled-password --shell /sbin/nologin  --no-create-home -d /var/lib/asterisk --gecos <span style="color:#e6db74">&#34;Asterisk User&#34;</span>
+or
+useradd -c <span style="color:#e6db74">&#34;Asterisk User&#34;</span> -d /var/lib/asterisk asterisk
+
+vi /etc/default/asterisk
+  AST_USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;asterisk&#34;</span>
+  AST_GROUP<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;asterisk&#34;</span>
+</code></pre></div><p>将asterisk conf asterisk.ctl给与 asterisk组权限</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chown asterisk:asterisk /etc/asterisk -R
+chown asterisk:asterisk /var/run/asterisk -R
+chown -R asterisk. /var/lib/asterisk
+</code></pre></div><hr>
+<p>或者制作 deb包:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt-get build-dep asterisk 安装所有编译asterisk依赖
+debuild -i -us -uc -b
+Testing the package
+licensecheck -r *
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> apt-get install -y debhelper
+ apt-get install -y dh-make devscripts
+
+ apt-get install -y dahdi-source
+ apt-get install -y dh-systemd libreadline-dev
+ apt-get install -y libgsm1-dev libtonezone-dev portaudio19-dev
+ apt-get install -y libpri-dev libss7-dev libvpb-dev 
+ apt-get install -y libcap2-dev libspandsp-dev libopenr2-dev libresample1-dev
+ apt-get install -y libsrtp-dev libpjproject-dev libsrtp0-dev binutils-dev
+ apt-get install -y dh-autoreconf libnewt-dev libsqlite0-dev
+ apt-get install -y libsqlite-dev libspeexdsp-dev libpopt-dev 
+ apt-get install -y libfreeradius-client-dev freetds-dev libvorbis-dev
+ apt-get install -y libogg-dev libgmime-2.6-dev liblua5.1-0-dev
+ apt-get install -y libspeexdsp-dev libpopt-dev
+
+dh_make -f ../asterisk-13-current.tar.gz
+
+Find build dependencies, don<span style="color:#e6db74">&#39;t need this because we don&#39;</span>t care about the source package.
+
+dpkg-depcheck -d ./configure
+
+<span style="color:#75715e"># Build only binary packages and don&#39;t sign them</span>
+dpkg-buildpackage -us -uc -c -j8
+</code></pre></div><p>附：
+生成证书，如webRTC TLS,需要：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /usr/local/src/asterisk-11.13.1~dfsg/contrib/scripts
+./ast_tls_cert -C pbx.mycompany.com -O <span style="color:#e6db74">&#34;My Super Company&#34;</span> -d /etc/asterisk/keys  
+./ast_tls_cert -m client -c /etc/asterisk/keys/ca.crt -k /etc/asterisk/keys/ca.key -C 192.168.10.3 -O <span style="color:#e6db74">&#34;My Super Company&#34;</span> -d /etc/asterisk/keys -o malcolm
+</code></pre></div><p>opus vp8 patch:</p>
+<ul>
+<li><!-- raw HTML omitted --><a href="https://github.com/netaskd/asterisk-opus/">https://github.com/netaskd/asterisk-opus/</a>  #11.5.0<!-- raw HTML omitted --></li>
+<li><a href="https://github.com/seanbright/asterisk-opus">https://github.com/seanbright/asterisk-opus</a>       #13.3.2</li>
+<li><!-- raw HTML omitted --><a href="https://github.com/traud/asterisk-silk">https://github.com/traud/asterisk-silk</a>    #13.7.1<!-- raw HTML omitted --></li>
+</ul>
+<pre><code>cp ../asterisk-opus/codecs/* codecs/
+cp ../asterisk-opus/formats/* formats/
+patch -p1 &lt; ../asterisk-opus/asterisk.patch
+
+./bootstrap.sh
+apt-get install opus-tool
+
+./configure
+make menuselect
+</code></pre><p>将用户加入副组：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">	usermod -G 副组1,副组2 asterisk
+</code></pre></div>
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="/tags/cti/" rel="tag">cti</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/asterisk/" rel="tag">asterisk</a></li>
+	</ul>
+</div>
+	</article>
+</main>
+<div class="social-share"></div>
+  <br/>
+
+
+
+
+<aside class="sidebar">
+<h4>相关文章</h4>
+<div class="widget__content">
+		<ul class="widget__list">
+	
+	<li><a href="/cti/asterisk/asterisk-modules-info/">Asterisk Modules 说明</a></li>
+	
+	<li><a href="/cti/asterisk/asterisk-call-parking/">Asterisk Call Parking 呼叫泊停</a></li>
+	
+	<li><a href="/cti/asterisk/asterisk-dailplain/">Asterisk Dailplain</a></li>
+	
+	<li><a href="/cti/asterisk/asterisk-ivr-menu/">Asterisk IVR MENU</a></li>
+	
+</ul>
+</div>
+<br/>
+</aside>
+
+
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--prev">
+		<a class="post-nav__link" href="/cti/asterisk/asterisk-ivr-menu/" rel="prev"><span class="post-nav__caption">«&thinsp;前一篇</span><p class="post-nav__post-title">Asterisk IVR MENU</p></a>
+	</div>
+	<div class="post-nav__item post-nav__item--next">
+		<a class="post-nav__link" href="/cti/asterisk/asterisk-dailplain/" rel="next"><span class="post-nav__caption">后一篇&thinsp;»</span><p class="post-nav__post-title">Asterisk Dailplain</p></a>
+	</div>
+</nav>
+
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="搜索..." value="" name="q" aria-label="搜索...">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://lnfiber.xyz/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">近期文章</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/load-balancer/nginx-lvs-haproxy-diff/">Nginx Lvs Haproxy 高可用负载对比</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/pve/chang-hostname/">PVE 更正web ui中节点名称</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-openshift-paas/">Centos Openshift Paas 虚拟平台部署</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-dnf-cli/">Centos 8 dnf 命令管理</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/jupyter/jupyter-configure/">jupyter notebooks 配置</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">分类</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/categories/asterisk">Asterisk</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/golang">Golang</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e5%85%b6%e5%ae%83">其它</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1">架构设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%9b%91%e6%8e%a7%e5%b9%b3%e5%8f%b0">监控平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bb%84%e7%bd%91%e5%86%85%e5%ae%b9">组网内容</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bc%96%e7%a8%8b%e8%ae%be%e8%ae%a1">编程设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%99%9a%e6%8b%9f%e7%ae%a1%e7%90%86%e5%b9%b3%e5%8f%b0">虚拟管理平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%b4%9f%e8%bd%bd%e9%ab%98%e5%8f%af%e7%94%a8">负载高可用</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">标签</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/asterisk" title="Asterisk">Asterisk</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/bash" title="Bash">Bash</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cache" title="Cache">Cache</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cti" title="Cti">Cti</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/curl" title="Curl">Curl</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker" title="Docker">Docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/glusterfs" title="Glusterfs">Glusterfs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hadoop" title="Hadoop">Hadoop</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/haproxy" title="Haproxy">Haproxy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ipv4" title="Ipv4">Ipv4</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/jupyter" title="Jupyter">Jupyter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/linux" title="Linux">Linux</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/lvs" title="Lvs">Lvs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/nginx" title="Nginx">Nginx</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/openshift" title="Openshift">Openshift</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ping" title="Ping">Ping</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/proxmox" title="Proxmox">Proxmox</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python" title="Python">Python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rabbitmq" title="Rabbitmq">Rabbitmq</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/wget" title="Wget">Wget</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/zabbix" title="Zabbix">Zabbix</a>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">社群</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:534133730%ef%bc%a0qq.com">
+				<svg class="widget-social__link-icon icon-mail" viewBox="0 0 416 288" width="24" height="24" fill="#fff"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>534133730＠qq.com</span>
+			</a>
+		</div>
+	</div>
+</div>
+
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Kei的记录本.
+			<span class="footer__copyright-credits">使用 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 技术与 <a href="https://github.com/kingfsen/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>主题</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script async src="/js/highlight.js"></script>
+
+<script type="text/javascript">
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+</script>
+
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Centos Openshift Paas 虚拟平台部署 - Kei的记录本</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	
+	<meta name="description" content="Openshift PaaS 虚拟平台部署">
+	<meta name="generator" content="Hugo 0.65.3" />
+	<meta property="og:title" content="Centos Openshift Paas 虚拟平台部署" />
+<meta property="og:description" content="Openshift PaaS 虚拟平台部署" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lnfiber.xyz/post/centos/centos-openshift-paas/" />
+<meta property="article:published_time" content="2019-12-30T21:46:12+08:00" />
+<meta property="article:modified_time" content="2019-12-30T21:46:12+08:00" />
+
+	
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">	
+	<link rel="stylesheet" type="text/css" href="/css/highlight.css">
+	
+	
+	<link rel="stylesheet" href="/css/share.min.css">
+	<script src="/js/social-share.min.js"></script>
+	<script src="/js/qrcode.js"></script>
+	
+	<link rel="stylesheet" href="/css/custom.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+	
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo">
+			<a class="logo__link" href="/" title="Kei的记录本" rel="home">
+			<div class="logo__title">Kei的记录本</div>			
+				<div class="logo__tagline">工作日常记录...!</div> 
+			</a>
+			
+			<div class="float_right"><div class="social-share"></div>
+  <br/></div>
+			
+		</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">选择</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/post/">A.kei的记录</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/index-asterisk-info/">B.CTI</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/zabbix/index-zabbix/">C.Zabbix</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Centos Openshift Paas 虚拟平台部署</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg>
+	<time class="meta__text" datetime="2019-12-30T21:46:12">2019年12月</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1" rel="category">架构设计</a>, <a class="meta__link" href="/categories/%e5%85%b6%e5%ae%83" rel="category">其它</a></span>
+</div>
+</div>
+		</header>
+
+  
+    <div class="toc">
+        <div class="toc__title"><span id="toc_menu_tip">展开书签</span></div>
+        <div class="toc__menu">
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#实验的软硬件环境情况">实验的软硬件环境情况：</a></li>
+    <li><a href="#更改系统源采用国内源加速所有机器修改软件源为163的源">更改系统源，采用国内源，加速，所有机器修改软件源为163的源</a></li>
+    <li><a href="#1-在所有主机节点配置">[1] 在所有主机节点配置</a></li>
+    <li><a href="#2-在所有主机节点源安装okd-311-docker-">[2] 在所有主机节点源安装okd 3.11 docker ..</a></li>
+    <li><a href="#3-在master主机节点-以origin用户操作配置各主机无密登录">[3] 在MASTER主机节点: 以origin用户操作,配置各主机无密登录</a></li>
+    <li><a href="#4-在master主节点以origin用户通过ansible-playbook来配置openshift">[4] 在master主节点,以origin用户通过Ansible Playbook来配置openshift</a></li>
+    <li><a href="#5执行-prerequisites-playbook">[5].执行 Prerequisites Playbook</a></li>
+    <li><a href="#6执行-deploy-cluster-playbook">[6].执行 Deploy Cluster Playbook</a></li>
+    <li><a href="#7成功安装后执行-show-state-查看各节点状态">[7].成功安装后执行 show state 查看各节点状态</a></li>
+    <li><a href="#8在master-节点操作创建网页平台管理用户">[8].在master 节点操作，创建网页平台管理用户</a></li>
+    <li><a href="#9反安装当中途遇到问题时可以通过此方法反安装一下再执行一般错误是因为-硬盘内存没达到要求还有docker源连接中断">[9].反安装,当中途遇到问题时，可以通过此方法反安装一下再执行，一般错误是因为 硬盘，内存没达到要求，还有docker源连接中断</a></li>
+    <li><a href="#整套系统会用到的镜像">整套系统会用到的镜像</a></li>
+  </ul>
+</nav>
+        </div>  
+    </div>
+    <script type="text/javascript">
+    $(".toc__title").click( function () {
+      if($(".toc__menu").css('display') == 'none') {
+        $(".toc__menu").show(); 
+        $("#toc_menu_tip").html("收起书签");
+      } else {
+        $(".toc__menu").hide(); 
+        $("#toc_menu_tip").html("展开书签");
+      }
+    });
+    </script>
+  
+<div class="content post__content clearfix">
+			<h1 id="okd部署">OKD部署</h1>
+<p>Openshift版本（虚拟化管理平台）：</p>
+<ul>
+<li>OpenShift Container Platform(Enterprise-OCP) 企业版</li>
+<li>Origin Community Distribution of Kubernetes(OKD) 开源版</li>
+</ul>
+<h2 id="实验的软硬件环境情况">实验的软硬件环境情况：</h2>
+<ul>
+<li>OS: centos 7</li>
+<li>Ver:  3.11</li>
+<li>Master node has up to 16G memory and up to 4 vCPU.</li>
+<li>Compute node has up to 8G memory and up to 1 vCPU.</li>
+<li>/var master最小40G，node 最小15G，etcd 最小20G</li>
+</ul>
+<pre><code>主机类型                            主机名                            IP地址                            操作系统
+master,etcd                      master.lnfiber.xyz               192.168.122.96                 centos 7
+node                        node01.lnfiber.xyz                192.168.122.97                 centos 7
+node                        node02.lnfiber.xyz                192.168.122.98                 centos 7
+</code></pre><blockquote>
+<p>没有DNS解析上面各主机名，则需在本地hosts做好自定义解析，或自建DNS服务器</p>
+</blockquote>
+<p>要求规范：</p>
+<ul>
+<li>
+<ol>
+<li>master，node 磁盘目录挂载格式 xfs；</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>swap必须关掉</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>seLinux enable</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>resolve.conf DNS解析配置</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>时间同步</li>
+</ol>
+</li>
+</ul>
+<pre><code># 所有主机节点配置主机名及网络
+[root@localhost ~]# hostnamectl set-hostname master.lnfiber.xyz        ＃配置master机主机名，其余主机类同
+
+＃所有主机配置网络
+nmcli con show       #查看网口连接
+NAME    UUID                                  TYPE      DEVICE 
+enp1s0  4363c505-ba4a-472d-aaaa-91f51e62150a  ethernet  enp1s0 
+
+nmcli con mod   enp1s0 ip4 192.168.122.96/24 gw4 192.168.122.1 ipv4.dns 192.168.122.245  #搭建的pdns
+nmcli con mod enp1s0 ipv4.metho manual
+nmcli con up enp1s0  ＃启用网口
+nmcli con mod enp1s0 connection.autoconnect yes          #配置开机启动
+
+systemctl restart NetworkManager     #重启网络服务
+
+# 所有主机配置好hosts自定义解析 /etc/hosts
+192.168.122.96 master
+192.168.122.97 node01
+192.168.122.98 node02
+
+</code></pre><h2 id="更改系统源采用国内源加速所有机器修改软件源为163的源">更改系统源，采用国内源，加速，所有机器修改软件源为163的源</h2>
+<pre><code>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.163.com/.help/CentOS7-Base-163.repo
+</code></pre><h2 id="1-在所有主机节点配置">[1] 在所有主机节点配置</h2>
+<pre><code>[root@node01 ~]# useradd origin
+[root@node01 ~]# passwd origin 
+[root@node01 ~]# echo -e 'Defaults:origin !requiretty\norigin ALL = (root) NOPASSWD:ALL' | tee /etc/sudoers.d/openshift
+[root@node01 ~]# chmod 440 /etc/sudoers.d/openshift
+[root@node01 ~]# firewall-cmd --add-service=ssh --permanent
+[root@node01 ~]# firewall-cmd --reload
+
+</code></pre><h2 id="2-在所有主机节点源安装okd-311-docker-">[2] 在所有主机节点源安装okd 3.11 docker ..</h2>
+<blockquote>
+<p>kei注：目前社区仅有3.11版本，4版本还没有放出来。2019.12.20日</p>
+</blockquote>
+<pre><code>yum -y install centos-release-openshift-origin311 epel-release docker git pyOpenSSL   
+systemctl start docker
+systemctl enable docker
+</code></pre><h2 id="3-在master主机节点-以origin用户操作配置各主机无密登录">[3] 在MASTER主机节点: 以origin用户操作,配置各主机无密登录</h2>
+<pre><code>[origin@master ~]$ ssh-keygen -q -N ''
+[origin@master ~]$ nano ~/.ssh/config
+
+#创建新文件
+Host mster
+        Hostname master.lnfiber.xyz
+        User    origin
+Host node01
+        Hostname node01.lnfiber.xyz
+        User    origin
+Host node02
+        Hostname node02.lnfiber.xyz
+        User    origin
+
+[origin@master ~]$ chmod 600 ~/.ssh/config 
+[origin@master ~]$ ssh-copy-id node01
+[origin@master ~]$ ssh-copy-id node02
+[origin@master root]$ ssh-copy-id master
+
+</code></pre><h2 id="4-在master主节点以origin用户通过ansible-playbook来配置openshift">[4] 在master主节点,以origin用户通过Ansible Playbook来配置openshift</h2>
+<pre><code>[origin@master ~]$ sudo yum -y install openshift-ansible
+
+[origin@master ~]$ sudo nano /etc/ansible/hosts
+
+# add follows to the end
+[OSEv3:children]
+masters
+nodes
+etcd
+
+[OSEv3:vars]
+ansible_ssh_user=origin
+ansible_become=true
+openshift_deployment_type=origin
+
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+
+# define default sub-domain for Master node
+openshift_master_default_subdomain=apps.lnfiber.xyz
+# allow unencrypted connection within cluster
+openshift_docker_insecure_registries=172.30.0.0/16
+
+[masters]
+master.lnfiber.xyz openshift_schedulable=true containerized=false
+
+[etcd]
+master.lnfiber.xyz
+
+[nodes]
+master.lnfiber.xyz openshift_node_group_name='node-config-master-infra'
+node01.lnfiber.xyz openshift_node_group_name='node-config-compute'
+node02.lnfiber.xyz openshift_node_group_name='node-config-compute'
+</code></pre><h2 id="5执行-prerequisites-playbook">[5].执行 Prerequisites Playbook</h2>
+<p>[origin@master ~]$ ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml</p>
+<p>PLAY RECAP ******************************************************************************************************************************************************
+localhost                  : ok=11   changed=0    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0<br>
+master.lnfiber.xyz         : ok=82   changed=21   unreachable=0    failed=0    skipped=116  rescued=0    ignored=0<br>
+node01.lnfiber.xyz         : ok=57   changed=20   unreachable=0    failed=0    skipped=105  rescued=0    ignored=0<br>
+node02.lnfiber.xyz         : ok=57   changed=20   unreachable=0    failed=0    skipped=105  rescued=0    ignored=0</p>
+<p>INSTALLER STATUS ************************************************************************************************************************************************
+Initialization  : Complete (0:10:37)</p>
+<h2 id="6执行-deploy-cluster-playbook">[6].执行 Deploy Cluster Playbook</h2>
+<p>[origin@master ~]$ ansible-playbook /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml</p>
+<h2 id="7成功安装后执行-show-state-查看各节点状态">[7].成功安装后执行 show state 查看各节点状态</h2>
+<pre><code>[origin@master ~]$ oc get nodes
+</code></pre><h2 id="8在master-节点操作创建网页平台管理用户">[8].在master 节点操作，创建网页平台管理用户</h2>
+<pre><code>[origin@master ~]$ sudo htpasswd /etc/origin/master/htpasswd admin
+New password:     # set password
+Re-type new password:
+Adding password for user admin
+</code></pre><h2 id="9反安装当中途遇到问题时可以通过此方法反安装一下再执行一般错误是因为-硬盘内存没达到要求还有docker源连接中断">[9].反安装,当中途遇到问题时，可以通过此方法反安装一下再执行，一般错误是因为 硬盘，内存没达到要求，还有docker源连接中断</h2>
+<pre><code>[origin@master ~]$ ansible-playbook  /usr/share/ansible/openshift-ansible/playbooks/adhoc/uninstall.yml
+</code></pre><h2 id="整套系统会用到的镜像">整套系统会用到的镜像</h2>
+<pre><code>docker.io/openshift/origin-node
+docker.io/openshift/origin-control-plane
+docker.io/openshift/origin-pod
+docker.io/openshift/origin-web-console
+docker.io/openshift/cockpit/kubernetes
+docker.io/openshift/cluster-monitoring-operator
+docker.io/openshift/prometheus-config-reloader
+docker.io/openshift/prometheus-operator
+docker.io/openshift/prometheus-alertmanager
+docker.io/openshift/prometheus
+docker.io/openshift/prometheus-node-exporter:v0.16.0
+docker.io/openshift/etcd
+docker.io/openshift/configmap-reload
+
+docker.io/openshift/origin-metrics-cassandra
+docker.io/openshift/origin-metrics-hawkular-metrics
+docker.io/openshift/origin-metrics-heapster
+
+docker.io/openshift/origin-logging-fluentd
+docker.io/openshift/origin-logging-kibana5
+docker.io/openshift/origin-logging-elasticsearch5
+docker.io/openshift/origin-logging-fluentd
+docker.io/openshift/origin-logging-kibana
+docker.io/openshift/origin-logging-auth-proxy
+</code></pre>
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="/tags/linux/" rel="tag">linux</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/docker/" rel="tag">docker</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/openshift/" rel="tag">openshift</a></li>
+	</ul>
+</div>
+	</article>
+</main>
+<div class="social-share"></div>
+  <br/>
+
+
+
+
+<aside class="sidebar">
+<h4>相关文章</h4>
+<div class="widget__content">
+		<ul class="widget__list">
+	
+	<li><a href="/post/load-balancer/nginx-lvs-haproxy-diff/">Nginx Lvs Haproxy 高可用负载对比</a></li>
+	
+	<li><a href="/post/pve/chang-hostname/">PVE 更正web ui中节点名称</a></li>
+	
+	<li><a href="/post/centos/centos-dnf-cli/">Centos 8 dnf 命令管理</a></li>
+	
+	<li><a href="/zabbix/zabbix-web-monitor/">zabbix系统之WEB监测</a></li>
+	
+	<li><a href="/post/haproxy/haproxy-reverse-proxy/">Haproxy 配置反代需要注意的事项</a></li>
+	
+	<li><a href="/post/glusterfs/20180512/">架构设计-分布文件存储-GlusterFS4.0-部署安装（1）</a></li>
+	
+</ul>
+</div>
+<br/>
+</aside>
+
+
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--prev">
+		<a class="post-nav__link" href="/post/centos/centos-dnf-cli/" rel="prev"><span class="post-nav__caption">«&thinsp;前一篇</span><p class="post-nav__post-title">Centos 8 dnf 命令管理</p></a>
+	</div>
+	<div class="post-nav__item post-nav__item--next">
+		<a class="post-nav__link" href="/post/pve/chang-hostname/" rel="next"><span class="post-nav__caption">后一篇&thinsp;»</span><p class="post-nav__post-title">PVE 更正web ui中节点名称</p></a>
+	</div>
+</nav>
+
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="搜索..." value="" name="q" aria-label="搜索...">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://lnfiber.xyz/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">近期文章</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/load-balancer/nginx-lvs-haproxy-diff/">Nginx Lvs Haproxy 高可用负载对比</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/pve/chang-hostname/">PVE 更正web ui中节点名称</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-openshift-paas/">Centos Openshift Paas 虚拟平台部署</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-dnf-cli/">Centos 8 dnf 命令管理</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/jupyter/jupyter-configure/">jupyter notebooks 配置</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">分类</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/categories/asterisk">Asterisk</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/golang">Golang</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e5%85%b6%e5%ae%83">其它</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1">架构设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%9b%91%e6%8e%a7%e5%b9%b3%e5%8f%b0">监控平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bb%84%e7%bd%91%e5%86%85%e5%ae%b9">组网内容</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bc%96%e7%a8%8b%e8%ae%be%e8%ae%a1">编程设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%99%9a%e6%8b%9f%e7%ae%a1%e7%90%86%e5%b9%b3%e5%8f%b0">虚拟管理平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%b4%9f%e8%bd%bd%e9%ab%98%e5%8f%af%e7%94%a8">负载高可用</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">标签</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/asterisk" title="Asterisk">Asterisk</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/bash" title="Bash">Bash</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cache" title="Cache">Cache</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cti" title="Cti">Cti</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/curl" title="Curl">Curl</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker" title="Docker">Docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/glusterfs" title="Glusterfs">Glusterfs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hadoop" title="Hadoop">Hadoop</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/haproxy" title="Haproxy">Haproxy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ipv4" title="Ipv4">Ipv4</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/jupyter" title="Jupyter">Jupyter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/linux" title="Linux">Linux</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/lvs" title="Lvs">Lvs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/nginx" title="Nginx">Nginx</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/openshift" title="Openshift">Openshift</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ping" title="Ping">Ping</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/proxmox" title="Proxmox">Proxmox</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python" title="Python">Python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rabbitmq" title="Rabbitmq">Rabbitmq</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/wget" title="Wget">Wget</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/zabbix" title="Zabbix">Zabbix</a>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">社群</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:534133730%ef%bc%a0qq.com">
+				<svg class="widget-social__link-icon icon-mail" viewBox="0 0 416 288" width="24" height="24" fill="#fff"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>534133730＠qq.com</span>
+			</a>
+		</div>
+	</div>
+</div>
+
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Kei的记录本.
+			<span class="footer__copyright-credits">使用 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 技术与 <a href="https://github.com/kingfsen/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>主题</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script async src="/js/highlight.js"></script>
+
+<script type="text/javascript">
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+</script>
+
+</body>
+</html>

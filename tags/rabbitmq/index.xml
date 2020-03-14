@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rabbitmq on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/rabbitmq/</link>
+    <description>Recent content in rabbitmq on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 15 Oct 2019 13:52:46 +0800</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>rabbitmq消息队列</title>
+      <link>https://lnfiber.xyz/post/rabbitmq/01/</link>
+      <pubDate>Tue, 15 Oct 2019 13:52:46 +0800</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/rabbitmq/01/</guid>
+      <description>官网：www.rabbitmq.com 1.简介 RabbitMQ是实现了高级消息队列协议（AMQP）的开源消息代理软件（亦称面向消息的中间件）,采用Erlang语言编写。客户端支持C/C++ java net go python php javascript ruby rust等, 支持AJAX，持久化，用于在分布式系统中存储转发消息，在易用性、扩展性、高可</description>
+    </item>
+    
+  </channel>
+</rss>

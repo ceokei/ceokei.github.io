@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang on Kei的记录本</title>
+    <link>https://lnfiber.xyz/tags/golang/</link>
+    <description>Recent content in golang on Kei的记录本</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 01 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lnfiber.xyz/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go中google相关包</title>
+      <link>https://lnfiber.xyz/post/golang/golang_google_packages/</link>
+      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lnfiber.xyz/post/golang/golang_google_packages/</guid>
+      <description>golang中google包 go get -u golang.org/x/crypto/bcrypt go get -u golang.org/x/crypto/blowfish go get -u golang.org/x/crypto/bn256 go get -u golang.org/x/crypto/cast5 go get -u golang.org/x/crypto/curve25519 go get -u golang.org/x/crypto/hkdf go get -u golang.org/x/crypto/md4 go get -u golang.org/x/crypto/nacl/box go get -u golang.org/x/crypto/nacl/secretbox go get -u golang.org/x/crypto/ocsp go get -u golang.org/x/crypto/openpgp go get -u golang.org/x/crypto/openpgp/armor go get -u golang.org/x/crypto/openpgp/clearsign go get -u golang.org/x/crypto/openpgp/elgamal go get -u golang.org/x/crypto/openpgp/errors go get -u golang.org/x/crypto/openpgp/packet go get -u golang.org/x/crypto/openpgp/s2k go get -u golang.org/x/crypto/otr go get -u golang.org/x/crypto/pbkdf2 go get -u golang.org/x/crypto/poly1305 go get -u golang.org/x/crypto/ripemd160 go get -u golang.org/x/crypto/salsa20 go get -u golang.org/x/crypto/salsa20/salsa go get -u golang.org/x/crypto/scrypt go get -u golang.org/x/crypto/sha3 go get -u golang.org/x/crypto/ssh go get -u golang.org/x/crypto/ssh/agent go get -u golang.org/x/crypto/ssh/terminal go get -u golang.org/x/crypto/ssh/test go get -u golang.org/x/crypto/twofish go get -u golang.org/x/crypto/xtea go get -u golang.org/x/crypto/xts go get -u</description>
+    </item>
+    
+  </channel>
+</rss>

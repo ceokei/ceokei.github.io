@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Asterisk Modules 说明 - Kei的记录本</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	
+	<meta name="description" content="">
+	<meta name="generator" content="Hugo 0.65.3" />
+	<meta property="og:title" content="Asterisk Modules 说明" />
+<meta property="og:description" content="modules 模块解释 app_adsiprog.so =&gt; (Asterisk ADSI Programming Application) ——用于支持模拟显示服务接口的终端设备，在终端屏幕上操作菜单等。 app_amd.so =&gt; (Answering Machine Detection Application) ——用于外呼时终端应答状态检测 app_authenticate.so =&gt; (Authentication Application) ——Asterisk用户认证，以文本形式存储用户密码 app_cdr.so =&gt; (Tell Asterisk to not maintain a CDR for the current call) ——通知Asterisk不用为当前通话维护通话详单记录表 app_chanisavail.so =&gt; (Check channel availability) ——检查通" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lnfiber.xyz/cti/asterisk/asterisk-modules-info/" />
+<meta property="article:published_time" content="2016-08-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-08-11T00:00:00+00:00" />
+
+	
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">	
+	<link rel="stylesheet" type="text/css" href="/css/highlight.css">
+	
+	
+	<link rel="stylesheet" href="/css/share.min.css">
+	<script src="/js/social-share.min.js"></script>
+	<script src="/js/qrcode.js"></script>
+	
+	<link rel="stylesheet" href="/css/custom.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+	
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo">
+			<a class="logo__link" href="/" title="Kei的记录本" rel="home">
+			<div class="logo__title">Kei的记录本</div>			
+				<div class="logo__tagline">工作日常记录...!</div> 
+			</a>
+			
+			<div class="float_right"><div class="social-share"></div>
+  <br/></div>
+			
+		</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">选择</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/post/">A.kei的记录</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/index-asterisk-info/">B.CTI</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/zabbix/index-zabbix/">C.Zabbix</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Asterisk Modules 说明</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg>
+	<time class="meta__text" datetime="2016-08-11T00:00:00">2016年08月</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/asterisk" rel="category">Asterisk</a></span>
+</div>
+</div>
+		</header>
+
+  
+    <div class="toc">
+        <div class="toc__title"><span id="toc_menu_tip">展开书签</span></div>
+        <div class="toc__menu">
+          <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#modules-模块解释">modules 模块解释</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>  
+    </div>
+    <script type="text/javascript">
+    $(".toc__title").click( function () {
+      if($(".toc__menu").css('display') == 'none') {
+        $(".toc__menu").show(); 
+        $("#toc_menu_tip").html("收起书签");
+      } else {
+        $(".toc__menu").hide(); 
+        $("#toc_menu_tip").html("展开书签");
+      }
+    });
+    </script>
+  
+<div class="content post__content clearfix">
+			<h3 id="modules-模块解释">modules 模块解释</h3>
+<pre><code>app_adsiprog.so =&gt; (Asterisk ADSI Programming Application)
+——用于支持模拟显示服务接口的终端设备，在终端屏幕上操作菜单等。
+app_amd.so =&gt; (Answering Machine Detection Application)
+——用于外呼时终端应答状态检测
+app_authenticate.so =&gt; (Authentication Application)
+——Asterisk用户认证，以文本形式存储用户密码
+app_cdr.so =&gt; (Tell Asterisk to not maintain a CDR for the current call)
+——通知Asterisk不用为当前通话维护通话详单记录表
+app_chanisavail.so =&gt; (Check channel availability)
+——检查通道状态是否可用
+app_channelredirect.so =&gt; (Channel Redirect)
+——重定向给定通道到拨号目标
+app_chanspy.so =&gt; (Listen to the audio of an active channel)
+——监听通话通道
+app_controlplayback.so =&gt; (Control Playback Application)
+——控制语音播放，快进快退停止等
+app_db.so =&gt; (Database Access Functions)
+——访问Asterisk自有数据库
+app_dial.so =&gt; (Dialing Application)
+——拨号应用
+app_dictate.so =&gt; (Virtual Dictation Machine)
+——应用于可控菜单录音
+app_directed_pickup.so =&gt; (Directed Call Pickup Application)
+——用A电话去接听正在振铃的B
+app_directory.so =&gt; (Extension Directory)
+——Extension目录服务
+app_disa.so =&gt; (DISA (Direct Inward System Access) Application)
+——直接呼入服务应用
+app_dumpchan.so =&gt; (Dump Info About The Calling Channel)
+——呼叫通道的日志记录
+app_echo.so =&gt; (Simple Echo Application)
+——简单Echo应用
+app_exec.so =&gt; (Executes dialplan applications)
+——执行拨号应用命令
+app_externalivr.so =&gt; (External IVR Interface Application)
+——外部IVR接口应用
+app_flash.so =&gt; (Flash channel application)
+——闪接通道应用
+app_forkcdr.so =&gt; (Fork The CDR into 2 separate entities)
+——分离详单为2个不同的实体
+app_getcpeid.so =&gt; (Get ADSI CPE ID)
+——获得ADSI（模拟显示服务）终端设备ID
+app_hasnewvoicemail.so =&gt; (Indicator for whether a voice mailbox has messages in a given folder.)
+——提示给定的目录中语音邮箱是否有消息
+app_ices.so =&gt; (Encode and Stream via icecast and ices)
+——采用icecast和ices方式编码语音流
+app_image.so =&gt; (Image Transmission Application)
+——图像传输应用
+app_lookupblacklist.so =&gt; (Look up Caller*ID name/number from blacklist database)
+——从黑名单数据库中查找主叫名字和号码
+app_lookupcidname.so =&gt; (Look up CallerID Name from local database)
+——从本地数据库中查找主叫名字
+app_macro.so =&gt; (Extension Macros)
+——执行宏命令
+app_meetme.so =&gt; (MeetMe conference bridge)
+——桥接会议
+app_milliwatt.so =&gt; (Digital Milliwatt (mu-law) Test Application)
+——产生毫瓦级常数用于测量应用
+app_mixmonitor.so =&gt; (Mixed Audio Monitoring Application)
+——混合音频监控应用
+app_morsecode.so =&gt; (Morse code)
+——莫尔斯编码
+app_mp3.so =&gt; (Silly MP3 Application)
+——无聊的MP3应用
+app_nbscat.so =&gt; (Silly NBS Stream Application)
+——无聊的NBS流应用
+app_page.so =&gt; (Page Multiple Phones)
+——群呼
+app_parkandannounce.so =&gt; (Call Parking and Announce Application)
+——呼叫停泊和引导词应用
+app_playback.so =&gt; (Sound File Playback Application)
+——放音引用
+app_privacy.so =&gt; (Require phone number to be entered
+——需要号码输入
+app_random.so =&gt; (Random goto)
+——随机跳转
+app_read.so =&gt; (Read Variable Application)
+——读取变量应用
+app_readfile.so =&gt; (Stores output of file into a variable)
+——把文件输出存放在变量中（读文件内容）
+app_realtime.so =&gt; (Realtime Data Lookup/Rewrite)
+——实时数据查找重写
+app_record.so =&gt; (Trivial Record Application)
+——价值不高的录音应用
+app_sayunixtime.so =&gt; (Say time)
+——读出系统时间
+app_senddtmf.so =&gt; (Send DTMF digits Application)
+——发送DTMF数字应用
+app_sendtext.so =&gt; (Send Text Applications)
+——发送文本应用
+app_setcallerid.so =&gt; (Set CallerID Application)
+——设置主叫号码应用
+app_setcdruserfield.so =&gt; (CDR user field apps)
+——设置通话详单用户自定义字段
+app_settransfercapability.so =&gt; (Set ISDN Transfer Capability)
+——设置ISDN呼叫转接能力
+app_sms.so =&gt; (SMS/PSTN handler)
+——短信/电话网 处理机
+app_softhangup.so =&gt; (Hangs up the requested channel)
+——软挂机
+app_speech_utils.so =&gt; (Dialplan Speech Applications)
+——拨号方案中的语音演讲应用
+app_stack.so =&gt; (Stack Routines)
+——常规堆栈
+app_system.so =&gt; (Generic System() application)
+——系统应用
+app_talkdetect.so =&gt; (Playback with Talk Detection)
+——放音时进行声音检测（如：检测真人说话）
+app_test.so =&gt; (Interface Test Application)
+——接口测试应用
+app_transfer.so =&gt; (Transfer)
+——呼叫转接服务
+app_url.so =&gt; (Send URL Applications)
+——发送URL应用
+app_userevent.so =&gt; (Custom User Event Application)
+——自定义用户事件
+app_verbose.so =&gt; (Send verbose output)
+——发送控制台输出信息
+app_voicemail.so =&gt; (Comedian Mail (Voicemail System))
+——语音邮件系统
+app_waitforring.so =&gt; (Waits until first ring after time)
+——振铃等待
+app_waitforsilence.so =&gt; (Wait For Silence)
+——静默等待
+app_while.so =&gt; (While Loops and Conditional Execution)
+——循环条件执行
+app_zapateller.so =&gt; (Block Telemarketers with Special Information Tone)
+——用特殊振铃音阻止电话营销阻
+app_zapbarge.so =&gt; (Barge in on Zap channel application)
+——载入Zap通道应用
+app_zapras.so =&gt; (Zap RAS Application)
+——zap 远程访问服务
+app_zapscan.so =&gt; (Scan Zap channels application)
+——Zap通道扫描应用
+cdr_custom.so =&gt; (Customizable Comma Separated Values CDR Backend)
+——用逗号分割的自定义CDR条目
+cdr_manager.so =&gt; (Asterisk Manager Interface CDR Backend)
+——Asterisk管理接口
+chan_features.so =&gt; (Feature Proxy Channel)
+——特征代理通道
+chan_iax2.so =&gt; (Inter Asterisk eXchange (Ver 2))
+——支持IAX2
+chan_local.so =&gt; (Local Proxy Channel)
+——本地虚拟通道
+chan_mgcp.so =&gt; (Media Gateway Control Protocol (MGCP))
+——媒体网关控制协议
+chan_sip.so =&gt; (Session Initiation Protocol (SIP))
+——SIP协议支持
+chan_usbradio.so =&gt; (channel driver for USB sound fobs and Asterisk cmd Rpt)
+——usb通道驱动
+chan_zap.so =&gt; (Zapata Telephony)
+——Zap卡支持
+codec_a_mu.so =&gt; (A-law and Mulaw direct Coder/Decoder)
+——a-law和mulaw编解码支持
+codec_adpcm.so =&gt; (Adaptive Differential PCM Coder/Decoder)
+——pcm编解码
+codec_alaw.so =&gt; (A-law Coder/Decoder)
+——a-law编解码
+codec_g726.so =&gt; (ITU G.726-32kbps G726 Transcoder)
+——G726编码传输
+codec_gsm.so =&gt; (GSM Coder/Decoder)
+——GSM编码支持
+codec_ilbc.so =&gt; (iLBC Coder/Decoder)
+——iLBC编解码
+codec_lpc10.so =&gt; (LPC10 2.4kbps Coder/Decoder)
+——LPC10编解码
+codec_ulaw.so =&gt; (mu-Law Coder/Decoder)
+——mu-law编解码
+codec_zap.so =&gt; (Generic Zaptel Transcoder Codec Translator)
+——Zaptel编解码转换
+format_g723.so =&gt; (G.723.1 Simple Timestamp File Format)
+format_g726.so =&gt; (Raw G.726 (16/24/32/40kbps) data)
+format_g729.so =&gt; (Raw G729 data)
+format_gsm.so =&gt; (Raw GSM data)
+format_h263.so =&gt; (Raw H.263 data)
+format_h264.so =&gt; (Raw H.264 data)
+format_ilbc.so =&gt; (Raw iLBC data)
+format_jpeg.so =&gt; (JPEG (Joint Picture Experts Group) Image Format)
+format_pcm.so =&gt; (Raw/Sun uLaw/ALaw 8KHz Audio support (PCM
+format_sln.so =&gt; (Raw Signed Linear Audio support (SLN))
+format_vox.so =&gt; (Dialogic VOX (ADPCM) File Format)
+format_wav.so =&gt; (Microsoft WAV format (8000Hz Signed Linear))
+format_wav_gsm.so =&gt; (Microsoft WAV format (Proprietary GSM))
+func_base64.so =&gt; (base64 encode/decode dialplan functions)
+——base64编解码拨号方案函数
+func_callerid.so =&gt; (Caller ID related dialplan function)
+——主叫相关拨号方案函数
+func_cdr.so =&gt; (CDR dialplan function)
+——CDR拨号方案函数
+func_channel.so =&gt; (Channel information dialplan function)
+——通道信息拨号方案函数
+func_cut.so =&gt; (Cut out information from a string)
+——从字符串剪切相关信息
+func_db.so =&gt; (Database (astdb) related dialplan functions)
+——Astdb相关拨号方案函数
+func_enum.so =&gt; (ENUM related dialplan functions)
+——ENUM（电话号码映射telephone number mapping working group）相关拨号函数
+func_env.so =&gt; (Environment/filesystem dialplan functions)
+——环境/文件系统拨号方案函数
+func_global.so =&gt; (Global variable dialplan functions)
+——全局变量
+func_groupcount.so =&gt; (Channel group dialplan functions)
+——通道组
+func_language.so =&gt; (Channel language dialplan function)
+——通道语言种类
+func_logic.so =&gt; (Logical dialplan functions)
+——逻辑拨号方案函数
+func_math.so =&gt; (Mathematical dialplan function)
+——精确拨号方案函数
+func_md5.so =&gt; (MD5 digest dialplan functions)
+——MD5 拨号方案函数
+func_moh.so =&gt; (Music-on-hold dialplan function)
+——音乐保持拨号方案函数
+func_rand.so =&gt; (Random number dialplan function)
+——产生随机数
+func_realtime.so =&gt; (Read/Write values from a RealTime repository)
+——RealTime实时读写
+func_sha1.so =&gt; (SHA-1 computation dialplan function)
+——SHA-1算法
+func_strings.so =&gt; (String handling dialplan functions)
+——字符串处理
+func_timeout.so =&gt; (Channel timeout dialplan functions)
+——通道超时
+func_uri.so =&gt; (URI encode/decode dialplan functions)
+——URI编解码
+pbx_config.so =&gt; (Text Extension Configuration)
+——文本Extension配置
+pbx_loopback.so =&gt; (Loopback Switch)
+——环回交换
+pbx_realtime.so =&gt; (Realtime Switch)
+——Realltime交换
+pbx_spool.so =&gt; (Outgoing Spool Support)
+——外呼队列支持
+res_adsi.so =&gt; (ADSI Resource (not optional))
+——ADSI（模拟显示服务接口）资源，没有选项
+res_agi.so =&gt; (Asterisk Gateway Interface (AGI))
+——AGI接口
+res_clioriginate.so =&gt; (Call origination from the CLI)
+——从CLI发起呼叫
+res_convert.so =&gt; (File format conversion CLI command)
+——CLI文件格式转换命令
+res_crypto.so =&gt; (Cryptographic Digital Signatures)
+——加密数字签名
+res_features.so =&gt; (Call Features Resource)
+——呼叫特征资源
+res_indications.so =&gt; (Indications Resource)
+——显示资源
+res_monitor.so =&gt; (Call Monitoring Resource)
+——呼叫监控
+res_musiconhold.so =&gt; (Music On Hold Resource)
+——音乐保持资源
+res_speech.so =&gt; (Generic Speech Recognition API)
+——语音识别接口
+
+做个简单的补充。
+首先是从这些共享模块的命名可以看出各自的用途，而前缀更可说明模块的应用类型，例如codec开头的模块是语音编解码模块，func是dialplan语句中处理变量或字符串等数据的函数，app开头是实现某一项功能的应用(application)，比如拨接另一方，比如播放录音等。
+稍微解释一下这些模块：
+res_features.so 这个模块的功能有转接电话，通话停泊等，多数是在通话的过程中二次拨号按键触发的，所以不是由主叫通道顺序触发，所以不是app，通话停泊也就是call parking是另外，有app的。
+res_indications.so 这个模块是区分各地区pstn电话信号音的，比如中国忙音和日本的忙音是不一样的。等等。
+res_musiconhold.so 待机铃声。有app，可以被主动触发，也可以在queue或dial等app中被指定。
+pbx_spool.so asterisk支持callback文件，就是写个文件让asterisk主动发起一路呼叫，并将这个通道作为主叫通道触发dialplan流程或执行特定的app。callback文件被丢到outgoing目录，这个模块就负责监视这个目录的变动，并解释执行callback文件。做呼死你或短信回拨就很有用啦。
+pbx_realtime.so 实时配置文件读取。可以把数据库的表当成配置文件来用。例如sip帐号的配置是在数据库里面，要添加修改帐号配置只要改数据库就行了，而且是即刻生效。比freepbx先写数据库，再同步到配置文件，再reload要酷得多。
+codec_ilbc.so ilbc是个很牛很牛的编码。带宽占用小，音质好。GIPS公司捐的。QQ/Skype/google talk都是它家的客户。牛吧。可惜从07年下半年起就不跟随asterisk默认安装了。要另外执行asterisk安装包里面的安装脚本才行。
+app_mixmonitor.so 这个monitor在字典里面有很多意思，比如电脑的显示器啊，班长啊，可就是没有录音的意思。不过，不好意思，asterisk说就是录音的意思啦！而且可以是通话了才录音，不通话不录音，录音只存一个录音文件而不是app_monitor要有一主叫一被叫的两路哦。贴心啊。
+app_cdr.so 通话详情记录。话单就靠它出啦。在你需要记录当时状态的地方设置resetcdr(w)就可以记下很多有用的过程状态，有助与更准确的分析通话。！
+
+</code></pre><blockquote>
+<p>择录网上</p>
+</blockquote>
+
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="/tags/cti/" rel="tag">cti</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/asterisk/" rel="tag">asterisk</a></li>
+	</ul>
+</div>
+	</article>
+</main>
+<div class="social-share"></div>
+  <br/>
+
+
+
+
+<aside class="sidebar">
+<h4>相关文章</h4>
+<div class="widget__content">
+		<ul class="widget__list">
+	
+	<li><a href="/cti/asterisk/asterisk-call-parking/">Asterisk Call Parking 呼叫泊停</a></li>
+	
+	<li><a href="/cti/asterisk/asterisk-dailplain/">Asterisk Dailplain</a></li>
+	
+	<li><a href="/cti/asterisk/asterisk-install/">Asterisk-install</a></li>
+	
+	<li><a href="/cti/asterisk/asterisk-ivr-menu/">Asterisk IVR MENU</a></li>
+	
+</ul>
+</div>
+<br/>
+</aside>
+
+
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--prev">
+		<a class="post-nav__link" href="/cti/asterisk/asterisk-call-parking/" rel="prev"><span class="post-nav__caption">«&thinsp;前一篇</span><p class="post-nav__post-title">Asterisk Call Parking 呼叫泊停</p></a>
+	</div>
+</nav>
+
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="搜索..." value="" name="q" aria-label="搜索...">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://lnfiber.xyz/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">近期文章</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/load-balancer/nginx-lvs-haproxy-diff/">Nginx Lvs Haproxy 高可用负载对比</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/pve/chang-hostname/">PVE 更正web ui中节点名称</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-openshift-paas/">Centos Openshift Paas 虚拟平台部署</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-dnf-cli/">Centos 8 dnf 命令管理</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/jupyter/jupyter-configure/">jupyter notebooks 配置</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">分类</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/categories/asterisk">Asterisk</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/golang">Golang</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e5%85%b6%e5%ae%83">其它</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1">架构设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%9b%91%e6%8e%a7%e5%b9%b3%e5%8f%b0">监控平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bb%84%e7%bd%91%e5%86%85%e5%ae%b9">组网内容</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bc%96%e7%a8%8b%e8%ae%be%e8%ae%a1">编程设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%99%9a%e6%8b%9f%e7%ae%a1%e7%90%86%e5%b9%b3%e5%8f%b0">虚拟管理平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%b4%9f%e8%bd%bd%e9%ab%98%e5%8f%af%e7%94%a8">负载高可用</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">标签</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/asterisk" title="Asterisk">Asterisk</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/bash" title="Bash">Bash</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cache" title="Cache">Cache</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cti" title="Cti">Cti</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/curl" title="Curl">Curl</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker" title="Docker">Docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/glusterfs" title="Glusterfs">Glusterfs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hadoop" title="Hadoop">Hadoop</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/haproxy" title="Haproxy">Haproxy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ipv4" title="Ipv4">Ipv4</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/jupyter" title="Jupyter">Jupyter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/linux" title="Linux">Linux</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/lvs" title="Lvs">Lvs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/nginx" title="Nginx">Nginx</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/openshift" title="Openshift">Openshift</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ping" title="Ping">Ping</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/proxmox" title="Proxmox">Proxmox</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python" title="Python">Python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rabbitmq" title="Rabbitmq">Rabbitmq</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/wget" title="Wget">Wget</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/zabbix" title="Zabbix">Zabbix</a>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">社群</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:534133730%ef%bc%a0qq.com">
+				<svg class="widget-social__link-icon icon-mail" viewBox="0 0 416 288" width="24" height="24" fill="#fff"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>534133730＠qq.com</span>
+			</a>
+		</div>
+	</div>
+</div>
+
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Kei的记录本.
+			<span class="footer__copyright-credits">使用 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 技术与 <a href="https://github.com/kingfsen/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>主题</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script async src="/js/highlight.js"></script>
+
+<script type="text/javascript">
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+</script>
+
+</body>
+</html>

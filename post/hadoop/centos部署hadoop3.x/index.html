@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>centos部署hadoop3.x - Kei的记录本</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	
+	<meta name="description" content="centos7.6 部署hadoop3.x">
+	<meta name="generator" content="Hugo 0.65.3" />
+	<meta property="og:title" content="centos部署hadoop3.x" />
+<meta property="og:description" content="centos7.6 部署hadoop3.x" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lnfiber.xyz/post/hadoop/centos%E9%83%A8%E7%BD%B2hadoop3.x/" />
+<meta property="article:published_time" content="2019-09-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-09-14T00:00:00+00:00" />
+
+	
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">	
+	<link rel="stylesheet" type="text/css" href="/css/highlight.css">
+	
+	
+	<link rel="stylesheet" href="/css/share.min.css">
+	<script src="/js/social-share.min.js"></script>
+	<script src="/js/qrcode.js"></script>
+	
+	<link rel="stylesheet" href="/css/custom.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+	
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo">
+			<a class="logo__link" href="/" title="Kei的记录本" rel="home">
+			<div class="logo__title">Kei的记录本</div>			
+				<div class="logo__tagline">工作日常记录...!</div> 
+			</a>
+			
+			<div class="float_right"><div class="social-share"></div>
+  <br/></div>
+			
+		</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">选择</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/post/">A.kei的记录</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/index-asterisk-info/">B.CTI</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/zabbix/index-zabbix/">C.Zabbix</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">centos部署hadoop3.x</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg>
+	<time class="meta__text" datetime="2019-09-14T00:00:00">2019年09月</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1" rel="category">架构设计</a></span>
+</div>
+</div>
+		</header>
+
+  
+    <div class="toc">
+        <div class="toc__title"><span id="toc_menu_tip">展开书签</span></div>
+        <div class="toc__menu">
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#说明">说明</a></li>
+    <li><a href="#问题">问题</a></li>
+  </ul>
+</nav>
+        </div>  
+    </div>
+    <script type="text/javascript">
+    $(".toc__title").click( function () {
+      if($(".toc__menu").css('display') == 'none') {
+        $(".toc__menu").show(); 
+        $("#toc_menu_tip").html("收起书签");
+      } else {
+        $(".toc__menu").hide(); 
+        $("#toc_menu_tip").html("展开书签");
+      }
+    });
+    </script>
+  
+<div class="content post__content clearfix">
+			<h2 id="说明">说明</h2>
+<ul>
+<li>os: centos 7.0</li>
+<li>3 nodes</li>
+<li>openjdk-1.8.0</li>
+</ul>
+<p>所有nodes说明</p>
+<pre><code>1) master.lnfiber.xyz (Master Node)
+2) node01.lnfiber.xyz(Slave Node)
+3) node02.lnfiber.xyz(Slave Node)
+</code></pre><p>所有nodes hosts文件</p>
+<pre><code>192.168.100.150 master
+192.168.100.151 node01
+192.168.100.152 node02
+</code></pre><p>[1] 安装java</p>
+<pre><code>yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel -y
+</code></pre><p>[2] 所有节点均要创建用户</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># useradd -d /usr/hadoop hadoop</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># chmod 755  /usr/hadoop</span>
+<span style="color:#f92672">[</span>root@master ~<span style="color:#f92672">]</span><span style="color:#75715e"># passwd hadoop</span>
+Changing password <span style="color:#66d9ef">for</span> user hadoop.
+New password:
+Retype new password:
+passwd: all authentication tokens updated successfully.
+</code></pre></div><p>[3] 在master节点,在hadoop用户下操作, 并配置SSH 免密匙,推送到所有节点中.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ ssh-keygen -t rsa
+<span style="color:#75715e">#send key to nodes include localhost</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ ssh-copy-id localhost
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ ssh-copy-id node01
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ ssh-copy-id node02
+</code></pre></div><p>[4] 在hadoop用户下操作,在所有节点安装<code>hadoop </code>最新版本,当前最新为3.1.2版本
+⇒ <a href="https://hadoop.apache.org/releases.html">https://hadoop.apache.org/releases.html</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ curl -O http://ftp.jaist.ac.jp/pub/apache/hadoop/common/hadoop-3.1.2/hadoop-3.1.2.tar.gz
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ tar -zxvf hadoop-3.1.2.tar.gz -C /usr/hadoop --strip-components <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ vi ~/.bash_profile
+
+<span style="color:#75715e">#添加全局环境变量</span>
+export HADOOP_HOME<span style="color:#f92672">=</span>/usr/hadoop
+export HADOOP_COMMON_HOME<span style="color:#f92672">=</span>$HADOOP_HOME
+export HADOOP_HDFS_HOME<span style="color:#f92672">=</span>$HADOOP_HOME
+export HADOOP_MAPRED_HOME<span style="color:#f92672">=</span>$HADOOP_HOME
+export HADOOP_YARN_HOME<span style="color:#f92672">=</span>$HADOOP_HOME
+export HADOOP_OPTS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-Djava.library.path=</span>$HADOOP_HOME<span style="color:#e6db74">/lib/native&#34;</span>
+export HADOOP_COMMON_LIB_NATIVE_DIR<span style="color:#f92672">=</span>$HADOOP_HOME/lib/native
+export PATH<span style="color:#f92672">=</span>$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ source ~/.bash_profile
+</code></pre></div><p>[5] 在master节点,在hadoop用户下操作,配置Hadoop
+创建数据存储目录(所有节点都要创建)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ mkdir ~/datanode
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ ssh node01 <span style="color:#e6db74">&#34;mkdir ~/datanode&#34;</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ ssh node02 <span style="color:#e6db74">&#34;mkdir ~/datanode&#34;</span>
+
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ vi ~/etc/hadoop/hdfs-site.xml
+
+<span style="color:#75715e">#在&lt;configuration&gt; - &lt;/configuration&gt; section小节中,增加以下内容</span>
+&lt;configuration&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.replication&lt;/name&gt;
+    &lt;value&gt;2&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+    &lt;value&gt;file:///usr/hadoop/datanode&lt;/value&gt;
+  &lt;/property&gt;
+&lt;/configuration&gt;
+
+<span style="color:#75715e">#推送到所有从机中</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ scp ~/etc/hadoop/hdfs-site.xml node01:~/etc/hadoop/
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ scp ~/etc/hadoop/hdfs-site.xml node02:~/etc/hadoop/
+
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ vi ~/etc/hadoop/core-site.xml
+
+<span style="color:#75715e">#在&lt;configuration&gt; - &lt;/configuration&gt; section小节中,增加以下内容</span>
+&lt;configuration&gt;
+  &lt;property&gt;
+    &lt;name&gt;fs.defaultFS&lt;/name&gt;
+    &lt;value&gt;hdfs://master:9000/&lt;/value&gt;
+  &lt;/property&gt;
+&lt;/configuration&gt;
+
+<span style="color:#75715e">#推送到所有从机中</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ scp ~/etc/hadoop/core-site.xml node01:~/etc/hadoop/
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ scp ~/etc/hadoop/core-site.xml node02:~/etc/hadoop/
+
+<span style="color:#75715e">#在hadoop环境变量配置文本中,修改JAVA_HOME的值</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ vi ~/etc/hadoop/hadoop-env.sh
+JAVA_HOME<span style="color:#f92672">=</span>/usr/lib/jvm/jre-1.8.0-openjdk
+
+<span style="color:#75715e">#推送到所有从机中</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ scp ~/etc/hadoop/hadoop-env.sh node01:~/etc/hadoop/
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ scp ~/etc/hadoop/hadoop-env.sh node02:~/etc/hadoop/
+
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ mkdir ~/namenode
+
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ vi ~/etc/hadoop/hdfs-site.xml
+
+<span style="color:#75715e">#在&lt;configuration&gt; - &lt;/configuration&gt; section小节中,增加以下内容</span>
+&lt;configuration&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+    &lt;value&gt;file:///usr/hadoop/namenode&lt;/value&gt;
+  &lt;/property&gt;
+&lt;/configuration&gt;
+
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ vi ~/etc/hadoop/mapred-site.xml
+
+<span style="color:#75715e">#在&lt;configuration&gt; - &lt;/configuration&gt; section小节中,增加以下内容</span>
+&lt;configuration&gt;
+  &lt;property&gt;
+    &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+    &lt;value&gt;yarn&lt;/value&gt;
+  &lt;/property&gt;
+&lt;/configuration&gt;
+
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ vi ~/etc/hadoop/yarn-site.xml
+
+<span style="color:#75715e">#在&lt;configuration&gt; - &lt;/configuration&gt; section小节中,增加以下内容</span>
+&lt;configuration&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+    &lt;value&gt;master&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.hostname&lt;/name&gt;
+    &lt;value&gt;master&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+    &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+  &lt;/property&gt;
+&lt;/configuration&gt;
+<span style="color:#75715e">#推到其它从机去</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ scp ~/etc/hadoop/yarn-site.xml node01:~/etc/hadoop/
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ scp ~/etc/hadoop/yarn-site.xml node02:~/etc/hadoop/
+
+<span style="color:#75715e">#在wokers中添加需要发现的从机,3.0 以下为slaves文件</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ vi ~/etc/hadoop/wokers
+<span style="color:#75715e"># add all nodes (remove localhost)</span>
+master <span style="color:#f92672">=</span>&gt;此机看你情况是否需要,我建议加上
+node01
+node02
+</code></pre></div><p>[6] Hadoop初始化,并且启动.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ hdfs namenode -format
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ start-dfs.sh
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ start-yarn.sh
+
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ jps
+<span style="color:#ae81ff">4896</span> ResourceManager
+<span style="color:#ae81ff">5361</span> Jps
+<span style="color:#ae81ff">5026</span> NodeManager
+<span style="color:#ae81ff">4341</span> NameNode
+<span style="color:#ae81ff">4667</span> SecondaryNameNode
+<span style="color:#ae81ff">4462</span> DataNode
+
+<span style="color:#f92672">[</span>hadoop@node01 ~<span style="color:#f92672">]</span>$ jps
+<span style="color:#ae81ff">646</span> Jps
+<span style="color:#ae81ff">426</span> DataNode
+<span style="color:#ae81ff">539</span> NodeManager
+
+<span style="color:#f92672">[</span>hadoop@node2 ~<span style="color:#f92672">]</span>$ jps
+<span style="color:#ae81ff">628</span> Jps
+<span style="color:#ae81ff">408</span> DataNode
+<span style="color:#ae81ff">521</span> NodeManager
+</code></pre></div><p>[7] 测试</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#目录创建测试</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ hdfs dfs -mkdir /test
+
+<span style="color:#75715e">#文件复制到目录测试</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ hdfs dfs -copyFromLocal ~/NOTICE.txt /test
+
+<span style="color:#75715e">#读取文件内容测试</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ hdfs dfs -cat /test/NOTICE.txt
+This product includes software developed by The Apache Software
+Foundation <span style="color:#f92672">(</span>http://www.apache.org/<span style="color:#f92672">)</span>.
+
+<span style="color:#75715e">#执行文件Wordcout测试</span>
+hadoop@master ~<span style="color:#f92672">]</span>$ hadoop jar ~/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.2.jar wordcount /test/NOTICE.txt /output01
+2019-09-14 15:36:38,956 INFO client.RMProxy: Connecting to ResourceManager at master/192.168.100.150:8032
+2019-09-14 15:36:39,546 INFO mapreduce.JobSubmitter: Cleaning up the staging area /tmp/hadoop-yarn/staging/hadoop/.staging/job_1568475390203_0001
+org.apache.hadoop.hdfs.server.namenode.SafeModeException: Cannot delete /tmp/hadoop-yarn/staging/hadoop/.staging/job_1568475390203_0001. Name node is in safe mode.
+The reported blocks <span style="color:#ae81ff">17</span> has reached the threshold 0.9990 of total blocks 17. The number of live datanodes <span style="color:#ae81ff">1</span> has reached the minimum number 0. In safe mode extension. Safe mode will be turned off automatically in <span style="color:#ae81ff">9</span> seconds. NamenodeHostName:master
+
+<span style="color:#75715e">#查看结果</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ hdfs dfs -ls /output01
+
+<span style="color:#75715e">#查看分词内容</span>
+<span style="color:#f92672">[</span>hadoop@master ~<span style="color:#f92672">]</span>$ hdfs dfs -cat /output01/part-r-00000
+<span style="color:#f92672">(</span>http://www.apache.org/<span style="color:#f92672">)</span>.       <span style="color:#ae81ff">1</span>
+Apache          <span style="color:#ae81ff">1</span>
+Foundation      <span style="color:#ae81ff">1</span>
+Software        <span style="color:#ae81ff">1</span>
+The             <span style="color:#ae81ff">1</span>
+This            <span style="color:#ae81ff">1</span>
+by              <span style="color:#ae81ff">1</span>
+developed       <span style="color:#ae81ff">1</span>
+includes        <span style="color:#ae81ff">1</span>
+product         <span style="color:#ae81ff">1</span>
+software        <span style="color:#ae81ff">1</span>
+
+</code></pre></div><p>[8] 通过浏览器打开网页,查看情况
+<code>http://192.168.100.150:9870</code></p>
+<h2 id="问题">问题</h2>
+<p>提示:处于safe模式,无法删除/tmp/hafs-hadoop/****
+解决</p>
+<pre><code>[hadoop@master ~]$ hafs dfsadmin -safemode leave
+</code></pre>
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="/tags/hadoop/" rel="tag">hadoop</a></li>
+	</ul>
+</div>
+	</article>
+</main>
+<div class="social-share"></div>
+  <br/>
+
+
+
+
+
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--prev">
+		<a class="post-nav__link" href="/post/haproxy/haproxy-reverse-proxy/" rel="prev"><span class="post-nav__caption">«&thinsp;前一篇</span><p class="post-nav__post-title">Haproxy 配置反代需要注意的事项</p></a>
+	</div>
+	<div class="post-nav__item post-nav__item--next">
+		<a class="post-nav__link" href="/post/cache/cache_des/" rel="next"><span class="post-nav__caption">后一篇&thinsp;»</span><p class="post-nav__post-title">大型网站缓存架构简说</p></a>
+	</div>
+</nav>
+
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="搜索..." value="" name="q" aria-label="搜索...">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://lnfiber.xyz/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">近期文章</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/load-balancer/nginx-lvs-haproxy-diff/">Nginx Lvs Haproxy 高可用负载对比</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/pve/chang-hostname/">PVE 更正web ui中节点名称</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-openshift-paas/">Centos Openshift Paas 虚拟平台部署</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-dnf-cli/">Centos 8 dnf 命令管理</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/jupyter/jupyter-configure/">jupyter notebooks 配置</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">分类</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/categories/asterisk">Asterisk</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/golang">Golang</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e5%85%b6%e5%ae%83">其它</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1">架构设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%9b%91%e6%8e%a7%e5%b9%b3%e5%8f%b0">监控平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bb%84%e7%bd%91%e5%86%85%e5%ae%b9">组网内容</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bc%96%e7%a8%8b%e8%ae%be%e8%ae%a1">编程设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%99%9a%e6%8b%9f%e7%ae%a1%e7%90%86%e5%b9%b3%e5%8f%b0">虚拟管理平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%b4%9f%e8%bd%bd%e9%ab%98%e5%8f%af%e7%94%a8">负载高可用</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">标签</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/asterisk" title="Asterisk">Asterisk</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/bash" title="Bash">Bash</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cache" title="Cache">Cache</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cti" title="Cti">Cti</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/curl" title="Curl">Curl</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker" title="Docker">Docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/glusterfs" title="Glusterfs">Glusterfs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hadoop" title="Hadoop">Hadoop</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/haproxy" title="Haproxy">Haproxy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ipv4" title="Ipv4">Ipv4</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/jupyter" title="Jupyter">Jupyter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/linux" title="Linux">Linux</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/lvs" title="Lvs">Lvs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/nginx" title="Nginx">Nginx</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/openshift" title="Openshift">Openshift</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ping" title="Ping">Ping</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/proxmox" title="Proxmox">Proxmox</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python" title="Python">Python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rabbitmq" title="Rabbitmq">Rabbitmq</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/wget" title="Wget">Wget</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/zabbix" title="Zabbix">Zabbix</a>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">社群</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:534133730%ef%bc%a0qq.com">
+				<svg class="widget-social__link-icon icon-mail" viewBox="0 0 416 288" width="24" height="24" fill="#fff"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>534133730＠qq.com</span>
+			</a>
+		</div>
+	</div>
+</div>
+
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Kei的记录本.
+			<span class="footer__copyright-credits">使用 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 技术与 <a href="https://github.com/kingfsen/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>主题</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script async src="/js/highlight.js"></script>
+
+<script type="text/javascript">
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+</script>
+
+</body>
+</html>

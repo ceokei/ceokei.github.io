@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Haproxy 配置反代需要注意的事项 - Kei的记录本</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	
+	<meta name="description" content="">
+	<meta name="generator" content="Hugo 0.65.3" />
+	<meta property="og:title" content="Haproxy 配置反代需要注意的事项" />
+<meta property="og:description" content="1. haproxy 配置反代需要注意的事项 haproxy ：开源，支持L4(TCP),L7(http) 第一，业务入口客户端IP，是否需要提交到后端记录 第二，业务是否需要会话持续 第三，后端是否是ssl 第四，前端是否需要ssl,是否需重定向到ssl中 第五，前端是否需要acl,进行域名分路，动静分离，譬如配合squid varnish 2. 示" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lnfiber.xyz/post/haproxy/haproxy-reverse-proxy/" />
+<meta property="article:published_time" content="2018-12-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-12-12T00:00:00+00:00" />
+
+	
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">	
+	<link rel="stylesheet" type="text/css" href="/css/highlight.css">
+	
+	
+	<link rel="stylesheet" href="/css/share.min.css">
+	<script src="/js/social-share.min.js"></script>
+	<script src="/js/qrcode.js"></script>
+	
+	<link rel="stylesheet" href="/css/custom.css">
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+	
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo">
+			<a class="logo__link" href="/" title="Kei的记录本" rel="home">
+			<div class="logo__title">Kei的记录本</div>			
+				<div class="logo__tagline">工作日常记录...!</div> 
+			</a>
+			
+			<div class="float_right"><div class="social-share"></div>
+  <br/></div>
+			
+		</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">选择</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/post/">A.kei的记录</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/index-asterisk-info/">B.CTI</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/zabbix/index-zabbix/">C.Zabbix</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Haproxy 配置反代需要注意的事项</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg>
+	<time class="meta__text" datetime="2018-12-12T00:00:00">2018年12月</time>
+</div>
+
+<div class="meta__item-categories meta__item">
+	<svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta__text"><a class="meta__link" href="/categories/%e8%b4%9f%e8%bd%bd%e9%ab%98%e5%8f%af%e7%94%a8" rel="category">负载高可用</a></span>
+</div>
+</div>
+		</header>
+
+  
+    <div class="toc">
+        <div class="toc__title"><span id="toc_menu_tip">展开书签</span></div>
+        <div class="toc__menu">
+          <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-haproxy-配置反代需要注意的事项">1. haproxy 配置反代需要注意的事项</a></li>
+        <li><a href="#2-示例">2. 示例：</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>  
+    </div>
+    <script type="text/javascript">
+    $(".toc__title").click( function () {
+      if($(".toc__menu").css('display') == 'none') {
+        $(".toc__menu").show(); 
+        $("#toc_menu_tip").html("收起书签");
+      } else {
+        $(".toc__menu").hide(); 
+        $("#toc_menu_tip").html("展开书签");
+      }
+    });
+    </script>
+  
+<div class="content post__content clearfix">
+			<h3 id="1-haproxy-配置反代需要注意的事项">1. haproxy 配置反代需要注意的事项</h3>
+<blockquote>
+<p>haproxy ：开源，支持L4(TCP),L7(http)</p>
+</blockquote>
+<p>第一，业务入口客户端IP，是否需要提交到后端记录
+第二，业务是否需要会话持续
+第三，后端是否是ssl
+第四，前端是否需要ssl,是否需重定向到ssl中
+第五，前端是否需要acl,进行域名分路，动静分离，譬如配合squid varnish</p>
+<h3 id="2-示例">2. 示例：</h3>
+<h4 id="http-简单示例">http 简单示例</h4>
+<pre><code>global
+    log         127.0.0.1 local2
+ 
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     4000
+    user        haproxy
+    group       haproxy
+    daemon
+ 
+    stats socket /var/lib/haproxy/stats
+ 
+defaults
+    mode                    http
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    option http-server-close
+    option forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           10s
+    maxconn                 3000
+ 
+frontend webser                                               #webser为名称
+        option forwardfor
+        bind  *:80                                                
+        default_backend         app 
+backend app 
+        balance roundrobin                            #使拥roundrobin 算法
+        server  app1 192.168.1.111:80 check          
+        server  app2 192.168.1.112:80 check
+</code></pre><h4 id="haproxy-统计页面的输出机制">haproxy 统计页面的输出机制</h4>
+<pre><code>frontend webser 
+        log 127.0.0.1 local3 
+        option forwardfor
+        bind  *:80
+        default_backend         app 
+backend app 
+        cookie node insert nocache
+        balance roundrobin
+        server  app1 192.168.1.111:80 check  cookie  node1    intval 2 rise 1 fall 2
+        server  app2 192.168.1.112:80 check  cookie  node2    intval 2 rise 1 fall 2
+        server  backup 127.0.0.1:8010  check  backup
+ 
+listen statistics
+        bind *:8009                           # 自定义监听端口
+        stats enable                          # 启用基于程序编译时默认设置的统计报告
+        stats auth admin:admin        # 统计页面用户名和密码设置
+        stats uri  /admin?stats          # 自定义统计页面的URL，默认为/haproxy?stats
+        stats hide-version                 # 隐藏统计页面上HAProxy的版本信息
+        stats refresh 30s                   # 统计页面自动刷新时间
+        stats admin if TRUE              #如果认证通过就做管理功能，可以管理后端的服务器
+        stats realm Hapadmin          # 统计页面密码框上提示文本，默认为Haproxy\ Statistics
+</code></pre><blockquote>
+<p>kei ： 注意haproxy本身后台的统计页面安全，建议bind私有地址，vpn组网，查看。</p>
+</blockquote>
+<h4 id="3-动静分离">3. 动静分离</h4>
+<pre><code>frontend  webservs
+    bind *:80
+    acl url_static       path_beg       -i /static /images /javascript /stylesheets
+    acl url_static       path_end       -i .jpg .gif .png .css .js  .html
+    acl url_php          path_end       -i .php
+    acl host_static      hdr_beg(host)  -i img. imgs. video. videos.  ftp. image. download.
+    use_backend static          if url_static  or host_static
+ 
+    use_backend dynamic         if url_php
+    default_backend             dynamic
+ 
+backend static
+    balance     roundrobin
+    server      node1 192.168.1.111:80  check maxconn 3000
+ 
+backend dynamic
+        balance roundrobin
+        server  node2   192.168.1.112:80 check maxconn 1000
+</code></pre><h4 id="4">4.</h4>
+<pre><code>frontend dev
+    bind *:8000
+    mode tcp
+    option httpclose
+    option forwardfor                       #将客户端真实ip加到HTTP Header中供服务器读取
+    option forwardfor header X-Client-IP    # 将xff的ip转成获取客户端一手ip，只对代理有效
+    option forwardfor header X-Real-IP      # 转发real_ip值
+    option http-server-close
+    default_backend devsrc
+
+backend devsrc
+        server devsrv251 192.168.10.251:80  check 
+
+frontend http
+    # 绑定 80 端口，启动 http
+    bind :80
+    # 绑定 443 端口，启动 https
+    bind :443 ssl crt /etc/certs/private/edu.pem
+    # 根据域名生成 acl 规则
+    acl is_host_web_com hdr(host) -i host1.web.com host2.web.com:443
+    # 根据 acl 规则选择后端
+    use_backend is_host_web_com if is_host_web_com
+ 
+backend is_host_web_com
+    # 如果未使用 https 则自动跳转，此处未开启
+    #redirect scheme https if !{ ssl_fc }
+    server weixin 10.0.0.250:8080 maxconn 100 check
+</code></pre><h4 id="5-mysql-读负载均衡">5. mysql 读负载均衡</h4>
+<pre><code>#---------------------------------------------------------------------
+# Global settings
+#---------------------------------------------------------------------
+global
+    # to have these messages end up in /var/log/haproxy.log you will
+    # need to:
+    #
+    # 1) configure syslog to accept network log events.  This is done
+    #    by adding the '-r' option to the SYSLOGD_OPTIONS in
+    #    /etc/sysconfig/syslog
+    #
+    # 2) configure local2 events to go to the /var/log/haproxy.log
+    #   file. A line like the following can be added to
+    #   /etc/sysconfig/syslog
+    #
+    #    local2.*                       /var/log/haproxy.log
+    #
+    log         127.0.0.1 local2
+ 
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     4000
+    user        haproxy
+    group       haproxy
+    daemon
+ 
+defaults
+    mode                    tcp
+    log                     global
+    option                  httplog
+    option                  dontlognull
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           10s
+    maxconn                 600
+ 
+listen stats
+    mode http
+    bind 0.0.0.0:1080
+    stats enable
+    stats hide-version
+    stats uri     /haproxyadmin?stats
+    stats realm   Haproxy\ Statistics
+    stats auth    admin:admin
+    stats admin if TRUE
+ 
+ 
+frontend mysql
+    bind *:3306
+    mode tcp
+    log global
+    default_backend mysqlservers
+ 
+backend mysqlservers
+    balance leastconn
+    server dbsrv1 192.168.1.111:3306 check port 3306 intval 2 rise 1 fall 2 maxconn 300
+    server dbsrv2 192.168.1.112:3306 check port 3306 intval 2 rise 1 fall 2 maxconn 300
+</code></pre><blockquote>
+<p>KEI: mysql用haproxy做负载有风险，除非你知道使用原因，不建议采用此法，推荐使用企业级数据库中间件实现，如maxscale,proxygui，原因，中间件可以很方便地对后端机同步状态，在线状态心跳检测自动上下线</p>
+</blockquote>
+<p>案例来源：http://www.tianfeiyu.com/?p=1061</p>
+
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="/tags/linux/" rel="tag">linux</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/haproxy/" rel="tag">haproxy</a></li>
+	</ul>
+</div>
+	</article>
+</main>
+<div class="social-share"></div>
+  <br/>
+
+
+
+
+<aside class="sidebar">
+<h4>相关文章</h4>
+<div class="widget__content">
+		<ul class="widget__list">
+	
+	<li><a href="/post/load-balancer/nginx-lvs-haproxy-diff/">Nginx Lvs Haproxy 高可用负载对比</a></li>
+	
+	<li><a href="/post/pve/chang-hostname/">PVE 更正web ui中节点名称</a></li>
+	
+	<li><a href="/post/centos/centos-openshift-paas/">Centos Openshift Paas 虚拟平台部署</a></li>
+	
+	<li><a href="/post/centos/centos-dnf-cli/">Centos 8 dnf 命令管理</a></li>
+	
+	<li><a href="/zabbix/zabbix-web-monitor/">zabbix系统之WEB监测</a></li>
+	
+	<li><a href="/post/glusterfs/20180512/">架构设计-分布文件存储-GlusterFS4.0-部署安装（1）</a></li>
+	
+</ul>
+</div>
+<br/>
+</aside>
+
+
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--prev">
+		<a class="post-nav__link" href="/post/golang/golang_google_packages/" rel="prev"><span class="post-nav__caption">«&thinsp;前一篇</span><p class="post-nav__post-title">Go中google相关包</p></a>
+	</div>
+	<div class="post-nav__item post-nav__item--next">
+		<a class="post-nav__link" href="/post/hadoop/centos%E9%83%A8%E7%BD%B2hadoop3.x/" rel="next"><span class="post-nav__caption">后一篇&thinsp;»</span><p class="post-nav__post-title">centos部署hadoop3.x</p></a>
+	</div>
+</nav>
+
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="搜索..." value="" name="q" aria-label="搜索...">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://lnfiber.xyz/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">近期文章</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/load-balancer/nginx-lvs-haproxy-diff/">Nginx Lvs Haproxy 高可用负载对比</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/pve/chang-hostname/">PVE 更正web ui中节点名称</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-openshift-paas/">Centos Openshift Paas 虚拟平台部署</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/centos/centos-dnf-cli/">Centos 8 dnf 命令管理</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/jupyter/jupyter-configure/">jupyter notebooks 配置</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">分类</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/categories/asterisk">Asterisk</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/golang">Golang</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e5%85%b6%e5%ae%83">其它</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1">架构设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%9b%91%e6%8e%a7%e5%b9%b3%e5%8f%b0">监控平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bb%84%e7%bd%91%e5%86%85%e5%ae%b9">组网内容</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e7%bc%96%e7%a8%8b%e8%ae%be%e8%ae%a1">编程设计</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%99%9a%e6%8b%9f%e7%ae%a1%e7%90%86%e5%b9%b3%e5%8f%b0">虚拟管理平台</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%e8%b4%9f%e8%bd%bd%e9%ab%98%e5%8f%af%e7%94%a8">负载高可用</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">标签</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/asterisk" title="Asterisk">Asterisk</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/bash" title="Bash">Bash</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cache" title="Cache">Cache</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cti" title="Cti">Cti</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/curl" title="Curl">Curl</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker" title="Docker">Docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/glusterfs" title="Glusterfs">Glusterfs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hadoop" title="Hadoop">Hadoop</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/haproxy" title="Haproxy">Haproxy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ipv4" title="Ipv4">Ipv4</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/jupyter" title="Jupyter">Jupyter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/linux" title="Linux">Linux</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/lvs" title="Lvs">Lvs</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/nginx" title="Nginx">Nginx</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/openshift" title="Openshift">Openshift</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ping" title="Ping">Ping</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/proxmox" title="Proxmox">Proxmox</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python" title="Python">Python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rabbitmq" title="Rabbitmq">Rabbitmq</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/wget" title="Wget">Wget</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/zabbix" title="Zabbix">Zabbix</a>
+	</div>
+</div>
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">社群</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Email" href="mailto:534133730%ef%bc%a0qq.com">
+				<svg class="widget-social__link-icon icon-mail" viewBox="0 0 416 288" width="24" height="24" fill="#fff"><path d="m0 16v256 16h16 384 16v-16-256-16h-16-384-16zm347 16-139 92.5-139-92.5zm-148 125.5 9 5.5 9-5.5 167-111.5v210h-352v-210z"/></svg>
+				<span>534133730＠qq.com</span>
+			</a>
+		</div>
+	</div>
+</div>
+
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Kei的记录本.
+			<span class="footer__copyright-credits">使用 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 技术与 <a href="https://github.com/kingfsen/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>主题</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script async src="/js/highlight.js"></script>
+
+<script type="text/javascript">
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+</script>
+
+</body>
+</html>
